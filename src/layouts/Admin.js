@@ -55,6 +55,7 @@ export default function Admin({ ...rest }) {
   const getRoute = () => {
     return window.location.pathname !== "/admin/maps";
   };
+  // drawe hidden on large devices
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
       setMobileOpen(false);
