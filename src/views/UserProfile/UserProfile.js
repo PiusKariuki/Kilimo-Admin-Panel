@@ -2,15 +2,15 @@ import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
-import GridItem from "components/Grid/GridItem.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardAvatar from "components/Card/CardAvatar.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
+import GridItem from "../../App/Common/components/Grid/GridItem.js";
+import GridContainer from "../../App/Common/components/Grid/GridContainer.js";
+import CustomInput from "../../App/Common/components/CustomInput/CustomInput.js";
+import Button from "../../App/Common/components/CustomButtons/Button.js";
+import Card from "../../App/Common/components/Card/Card.js";
+import CardHeader from "../../App/Common/components/Card/CardHeader.js";
+import CardAvatar from "../../App/Common/components/Card/CardAvatar.js";
+import CardBody from "../../App/Common/components/Card/CardBody.js";
+import CardFooter from "../../App/Common/components/Card/CardFooter.js";
 
 import avatar from "assets/img/faces/marc.jpg";
 

@@ -3,13 +3,13 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 // core components
-import GridItem from "components/Grid/GridItem.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/Table.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
+import GridItem from "../../App/Common/components/Grid/GridItem.js";
+import GridContainer from "../../App/Common/components/Grid/GridContainer.js";
+import Table from "../../App/Common/components/Table/Table.js";
+import Card from "../../App/Common/components/Card/Card.js";
+import CardHeader from "../../App/Common/components/Card/CardHeader.js";
 
-import CardBody from "components/Card/CardBody.js";
+import CardBody from "../../App/Common/components/Card/CardBody.js";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 

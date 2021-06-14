@@ -13,7 +13,7 @@ import Divider from "@material-ui/core/Divider";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 // core components
-import Button from "components/CustomButtons/Button.js";
+import Button from "../CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
