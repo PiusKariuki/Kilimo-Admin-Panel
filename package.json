@@ -8,6 +8,7 @@
     "@babel/core": "7.14.0",
     "@material-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",
+    "axios": "^0.21.1",
     "chartist": "0.10.1",
     "classnames": "2.3.1",
     "history": "5.0.0",
@@ -16,9 +17,14 @@
     "react": "17.0.2",
     "react-chartist": "0.14.4",
     "react-dom": "17.0.2",
-    "react-router-dom": "5.2.0",
+    "react-redux": "^7.2.4",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-swipeable-views": "0.13.9",
+    "redux": "^4.1.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "sweetalert": "^2.1.2",
     "typescript": "4.2.4",
     "yarn": "^1.22.10"
   },
@@ -43,15 +49,12 @@
   "bugs": {
     "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
   },
-  "homepage": "https://creativetimofficial.github.io/material-dashboard-react/#/dashboard",
+  "homepage": "/",
   "optionalDependencies": {
     "@babel/core": "7.14.0",
     "typescript": "4.2.4"
   },
   "devDependencies": {
-    "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-prettier": "3.4.0",
-    "eslint-plugin-react": "^7.24.0",
     "gulp": "^4.0.2",
     "gulp-append-prepend": "1.0.9",
     "prettier": "2.2.1"

@@ -1,18 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
-// core components
-import Admin from "layouts/Admin.js";
+import Landing from "./App/Modules/Auth/Views/Landing";
 
 import "assets/css/material-dashboard-react.css?v=1.10.0";
 
+// store import
+import { Provider } from "react-redux";
+import ConfigureStore from "./App/Common/Store/Configure_Store/ConfigureStore";
+
+const store = ConfigureStore();
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/admin" component={Admin} />
-      <Redirect from="/" to="/admin/dashboard" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <Landing />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
