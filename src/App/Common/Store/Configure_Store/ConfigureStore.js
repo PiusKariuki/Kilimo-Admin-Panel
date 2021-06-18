@@ -18,7 +18,7 @@ const ConfigureStore = () => {
     combineReducers({
       User: User,
     }),
-    persistedState,
+    
     applyMiddleware(...middleware)
   );
 

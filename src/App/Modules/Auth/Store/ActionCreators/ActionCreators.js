@@ -1,9 +1,6 @@
 import Axios from "axios";
 import { baseUrl } from "../../../../Common/Shared/Shared";
-import { interceptor } from "../../../../Common/Shared/Shared";
-// import swal from "sweetalert";
-// import getState to grab tkn
-import { getState } from "../../../../Common/Store/Configure_Store/ConfigureStore";
+import swal from "sweetalert";
 
 //actiontypes imports
 import * as ActionTypes from "../ActionTypes/ActionTypes";
@@ -12,12 +9,14 @@ const axios = Axios.create({
   baseURL: baseUrl,
 });
 
-const tkn = getState().tkn;
-// request interceptor
-interceptor(tkn);
+/*...........initialize custom hook...........*/
 
-// login thunk. Takes in email and password
-export const Login = (email, password) => (dispatch, getState) => {
+
+
+/*...............start login thunk...........*/
+export const Login = (email, password) => (dispatch) => {
+  // dispatch loading to activate useSpinner
+  dispatch(loading(true))
   const userInfo = { "email": email, "password": password };
   return axios
     .post("authentication/voters/login", userInfo)
@@ -39,3 +38,41 @@ export const logFailed = (errors) => ({
   type: ActionTypes.LOG_FAILED,
   payload: errors,
 });
+/* ..................end login thunk.............................*/
+
+/*.......................start register thunk...................*/
+export const RegisterThunk = email => dispatch => {
+
+  // dispatch loading to activate useSpinner
+  dispatch(loading(true))
+
+  const newVoter = {
+    "email": email
+  }
+
+  return axios.post('authentication/voters/register', newVoter)
+    .then(res => {
+      swal("Registration successful", "Your password has been sent to your email", "success")
+      dispatch(emailSent(res.config.data))
+    })
+    .catch(err => {
+      if (err.response?.data?.errors)
+        dispatch(emailFailed(err.response?.data?.errors));
+    });
+}
+
+export const emailSent = (data) => ({
+  type: ActionTypes.EMAIL_SENT,
+  payload: data
+});
+
+export const emailFailed = (errmess) => ({
+  type: ActionTypes.EMAIL_FAILED,
+  payload: errmess
+});
+/* ..................end register thunk .......................*/
+
+/*............................loading action..............*/
+export const loading = () => ({
+  type: ActionTypes.LOADING,
+})

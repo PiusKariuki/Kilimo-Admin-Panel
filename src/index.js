@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 
-import Landing from "./App/Modules/Auth/Views/Landing";
+import Auth from "./App/Modules/Auth/Container/Auth";
 
 import "assets/css/material-dashboard-react.css?v=1.10.0";
 
@@ -14,7 +14,7 @@ const store = ConfigureStore();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Landing />
+      <Auth/>
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")

@@ -5,9 +5,6 @@ export const User = (
   state = {
     loading: false,
     errmess: null,
-    loggedIn: false,
-    newUser: [],
-    tkn: []
   },
   action
 ) => {
@@ -16,7 +13,6 @@ export const User = (
       return {
         ...state,
         errmess: null,
-        loggedIn: true,
         newUser: action.payload[0],
         tkn: action.payload[1],
         loading: false,
@@ -26,7 +22,6 @@ export const User = (
       return {
         ...state,
         errmess: null,
-        loggedIn: false,
         newUser: [],
         loading: true,
       };
@@ -35,8 +30,7 @@ export const User = (
       return {
         ...state,
         errmess: action.payload,
-        newUser: [],
-        loggedIn: false,
+        newUser: null,
         loading: false,
       };
 
@@ -44,8 +38,22 @@ export const User = (
       return {
         ...state,
         errmess: null,
-        newUser: [],
-        loggedIn: false,
+        newUser: null,
+        loading: false,
+      };
+
+    case ActionTypes.EMAIL_SENT:
+      return {
+        ...state,
+        regMess: null,
+        regMail: action.payload,
+        loading: false,
+      };
+
+    case ActionTypes.EMAIL_FAILED:
+      return {
+        ...state,
+        regMess: action.payload,
         loading: false,
       };
 

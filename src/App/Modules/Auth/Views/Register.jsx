@@ -3,10 +3,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -16,12 +13,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 
 // action import
-import { Login } from "../Store/ActionCreators/ActionCreators";
+import { RegisterThunk } from "../Store/ActionCreators/ActionCreators";
 
-// logic import
-import useLogin from "../Hooks/useLoginLogic";
-// history import
-import { Link, withRouter } from "react-router-dom";
+// custom hook
+import useRegister from "../Hooks/useRegisterLogic";
+
+// rrd imports
+import { withRouter, Link } from "react-router-dom";
 
 // spinner hook import
 import useSpinner from "App/Common/Spinner/Spinner";
@@ -60,56 +58,54 @@ const useStyles = makeStyles((theme) => ({
 	},
 	spinner: {
 		position: "absolute",
-		right: "20rem",
+		right: "17rem",
 		alignSelf: "center",
 	},
 }));
 
-// parent fn
-function Landing({ login, loading, passError, mailError, regMail }) {
+const Register = ({ register, loading, regMess }) => {
 	const classes = useStyles();
-
-	// custom hook
-	const [changeHandler, mail, password, errMess, mailErr, passErr] = useLogin();
+	// hook destructuring
+	const [mail, changeHandler, regErr, errHandler] = useRegister();
 
 	// spinner hook
 	const [renderSpinner] = useSpinner();
 
-	// error hook
+	// effect hook for error loading in custom hook
 	React.useEffect(() => {
-		errMess(mailError, passError);
-	}, [passError, mailError]);
+		errHandler(regMess);
+	}, [regMess]);
 
-	// effecct hook to clean up messages on reload and Routes
+	// effect hook to clean up errors on reloads
 	React.useEffect(() => {
-		errMess("", "");
+		errHandler("");
 	}, []);
 
 	// submit handler
-	// submit handler
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		login(mail, password);
+		register(mail);
 	};
+
 	return (
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={7} className={classes.image} />
+
 			{/*..................... spinner..................................... */}
 			<Grid item xs className={classes.spinner}>
 				{renderSpinner(loading)}
 			</Grid>
 			{/* ..............spinnner end.................... */}
-			{/* ...................input email and password........................... */}
+
+			{/* ..............email input div............. */}
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 				<div className={classes.paper}>
-					{/* .............padlock icon................. */}
 					<Avatar className={classes.avatar}>
 						<LockOutlinedIcon />
 					</Avatar>
-					{/* ......................padlock icon end.............. */}
 					<Typography component="h1" variant="h5">
-						Sign in
+						Sign up
 					</Typography>
 					<form
 						className={classes.form}
@@ -131,24 +127,7 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 						/>
 						{/* .........email errors.............. */}
 						<Typography variant="body2" color="error">
-							{mailErr}
-						</Typography>
-						<TextField
-							value={password}
-							onChange={(e) => changeHandler(e)}
-							variant="outlined"
-							margin="normal"
-							required
-							fullWidth
-							name="password"
-							label="Password"
-							type="password"
-							id="password"
-							autoComplete="current-password"
-						/>
-						{/* .........password errors.............. */}
-						<Typography variant="body2" color="error">
-							{passErr}
+							{regErr}
 						</Typography>
 						<Button
 							type="submit"
@@ -161,33 +140,30 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 						>
 							Sign In
 						</Button>
-					</form>
-					<Grid container>
-						<Grid item>
-							<Link to="/auth/register">
-								{"Don't have an account? Sign Up"}
-							</Link>
+						<Grid container>
+							<Grid item xs={12}>
+								<Link to="/auth/landing">Proceed to login</Link>
+							</Grid>
 						</Grid>
-					</Grid>
+					</form>
 				</div>
 			</Grid>
-			{/* ............inputs grid end................................. */}
+			{/* routing grid */}
 		</Grid>
 	);
-}
+};
 
 const mapStateToProps = (state) => {
 	return {
 		loading: state?.User?.loading,
-		passError: state.User?.errmess?.password,
-		mailError: state.User?.errmess?.email,
+		regMess: state.User?.regMess?.email,
 	};
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	login: (email, password) => dispatch(Login(email, password)),
+	register: (email) => dispatch(RegisterThunk(email)),
 });
 
 export default withRouter(
-	connect(mapStateToProps, mapDispatchToProps)(Landing)
+	connect(mapStateToProps, mapDispatchToProps)(Register)
 );
