@@ -4,8 +4,6 @@ import authRoutes from "../Routes/Routes";
 import { Switch, Route,Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-// routing hook to avoid going back to login when authenticated
-import useAuth from "../Hooks/useAuth";
 
 const Auth = ({tkn}) => {
   // .............routing map fn.................
@@ -18,9 +16,6 @@ const Auth = ({tkn}) => {
     );
   }
   // ........end route map fn........................
-
-  // init redirect hook
-  const [redirectWithTkn]=useAuth();
 
   return (
     <Switch>

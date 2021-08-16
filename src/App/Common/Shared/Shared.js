@@ -8,4 +8,4 @@ export const interceptor = (token) => {
   });
 };
 
-export const baseUrl = "https://votingapi.zoopio.co.ke/api/v1/";
+export const baseUrl = "http://localhost:5000";

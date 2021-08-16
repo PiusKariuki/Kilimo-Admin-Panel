@@ -58,48 +58,32 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		margin: theme.spacing(3, 0, 2),
 	},
-	spinner: {
-		position: "absolute",
-		right: "20rem",
-		alignSelf: "center",
+	errors: {
+		marginTop: "3rem",
+		marginBottom: "0",
 	},
 }));
 
 // parent fn
-function Landing({ login, loading, passError, mailError, regMail }) {
+function Landing({ login, loading, errors }) {
 	const classes = useStyles();
 
 	// custom hook
-	const [changeHandler, mail, password, errMess, mailErr, passErr] = useLogin();
+	const [changeHandler, mail, password,] = useLogin();
 
 	// spinner hook
 	const [renderSpinner] = useSpinner();
 
-	// error hook
-	React.useEffect(() => {
-		errMess(mailError, passError);
-	}, [passError, mailError]);
-
-	// effecct hook to clean up messages on reload and Routes
-	React.useEffect(() => {
-		errMess("", "");
-	}, []);
-
-	// submit handler
 	// submit handler
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		login(mail, password);
 	};
+	
 	return (
 		<Grid container component="main" className={classes.root}>
 			<CssBaseline />
 			<Grid item xs={false} sm={4} md={7} className={classes.image} />
-			{/*..................... spinner..................................... */}
-			<Grid item xs className={classes.spinner}>
-				{renderSpinner(loading)}
-			</Grid>
-			{/* ..............spinnner end.................... */}
 			{/* ...................input email and password........................... */}
 			<Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
 				<div className={classes.paper}>
@@ -110,6 +94,14 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 					{/* ......................padlock icon end.............. */}
 					<Typography component="h1" variant="h5">
 						Sign in
+					</Typography>
+					<Typography
+						component="h1"
+						variant="subtitle1"
+						color="secondary"
+						className={classes.errors}
+					>
+						{errors}
 					</Typography>
 					<form
 						className={classes.form}
@@ -129,10 +121,6 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 							autoComplete="email"
 							autoFocus
 						/>
-						{/* .........email errors.............. */}
-						<Typography variant="body2" color="error">
-							{mailErr}
-						</Typography>
 						<TextField
 							value={password}
 							onChange={(e) => changeHandler(e)}
@@ -146,10 +134,12 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 							id="password"
 							autoComplete="current-password"
 						/>
-						{/* .........password errors.............. */}
-						<Typography variant="body2" color="error">
-							{passErr}
-						</Typography>
+						{/*..................... spinner..................................... */}
+						<Box display="flex"  justifyContent="center">
+							{renderSpinner(loading)}
+						</Box>
+						{/* ..............spinnner end.................... */}
+
 						<Button
 							type="submit"
 							fullWidth
@@ -162,13 +152,6 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 							Sign In
 						</Button>
 					</form>
-					<Grid container>
-						<Grid item>
-							<Link to="/auth/register">
-								{"Don't have an account? Sign Up"}
-							</Link>
-						</Grid>
-					</Grid>
 				</div>
 			</Grid>
 			{/* ............inputs grid end................................. */}
@@ -179,8 +162,7 @@ function Landing({ login, loading, passError, mailError, regMail }) {
 const mapStateToProps = (state) => {
 	return {
 		loading: state?.User?.loading,
-		passError: state.User?.errmess?.password,
-		mailError: state.User?.errmess?.email,
+		errors: state?.User?.errmess,
 	};
 };
 

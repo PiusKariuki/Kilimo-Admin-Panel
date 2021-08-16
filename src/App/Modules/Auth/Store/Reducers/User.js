@@ -2,62 +2,47 @@
 import * as ActionTypes from "../ActionTypes/ActionTypes";
 
 export const User = (
-  state = {
-    loading: false,
-    errmess: null,
-  },
-  action
+	state = {
+		tkn: null,
+		errmess: null,
+		loading: false
+	},
+	action
 ) => {
-  switch (action.type) {
-    case ActionTypes.LOGGED_IN:
-      return {
-        ...state,
-        errmess: null,
-        newUser: action.payload[0],
-        tkn: action.payload[1],
-        loading: false,
-      };
+	switch (action.type) {
+		case ActionTypes.LOGGED_IN:
+			return {
+				...state,
+				errmess: null,
+				tkn: action.payload,
+				loading: false,
+			};
 
-    case ActionTypes.LOADING:
-      return {
-        ...state,
-        errmess: null,
-        newUser: [],
-        loading: true,
-      };
+		case ActionTypes.LOG_FAILED:
+			return {
+				...state,
+				errmess: action.payload,
+				tkn: null,
+				loading: false,
+			};
 
-    case ActionTypes.LOG_FAILED:
-      return {
-        ...state,
-        errmess: action.payload,
-        newUser: null,
-        loading: false,
-      };
+		case ActionTypes.LOGOUT:
+			return {
+				...state,
+				errmess: null,
+				tkn: null,
+				loading: false,
+			};
 
-    case ActionTypes.LOGOUT:
-      return {
-        ...state,
-        errmess: null,
-        newUser: null,
-        loading: false,
-      };
+		case ActionTypes.LOADING:
+			return {
+				...state,
+				errmess: null,
+				tkn: null,
+				loading: true,
+			};
 
-    case ActionTypes.EMAIL_SENT:
-      return {
-        ...state,
-        regMess: null,
-        regMail: action.payload,
-        loading: false,
-      };
-
-    case ActionTypes.EMAIL_FAILED:
-      return {
-        ...state,
-        regMess: action.payload,
-        loading: false,
-      };
-
-    default:
-      return state;
-  }
+		default:
+			return state;
+	}
 };
