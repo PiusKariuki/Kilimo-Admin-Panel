@@ -14,23 +14,24 @@ const persistedState = loadState();
 const middleware = [thunk, logger];
 
 const ConfigureStore = () => {
-  const store = createStore(
-    combineReducers({
-      User: User,
-    }),
-    applyMiddleware(...middleware)
-  );
+	const store = createStore(
+		combineReducers({
+			User: User,
+		}),
+		persistedState,
+		applyMiddleware(...middleware)
+	);
 
-  // subscribe to state changes to store our user info, tkn and other non-changing data
-  store.subscribe(() => {
-    // save token and user info on state Changes
-    saveState(store.getState());
-  });
-  return store;
+	// subscribe to state changes to store our user info, tkn and other non-changing data
+	store.subscribe(() => {
+		// save token and user info on state Changes
+		 saveState(store.getState());
+	});
+	return store;
 };
 
 export const getState = () => {
-  return ConfigureStore().getState();
+	return ConfigureStore().getState();
 };
 
 export default ConfigureStore;

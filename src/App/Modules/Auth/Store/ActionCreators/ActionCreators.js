@@ -1,20 +1,18 @@
 import Axios from "axios";
-import { baseUrl } from "../../../../Common/Shared/Shared";
 import swal from "sweetalert";
+import request from "App/Common/Shared/Request";
 
 //actiontypes imports
 import * as ActionTypes from "../ActionTypes/ActionTypes";
 
-const axios = Axios.create({
-	baseURL: baseUrl,
-});
+
 
 /*...............start login thunk...........*/
 export const Login = (email, password) => (dispatch) => {
 	// dispatch loading to activate useSpinner
 	dispatch(loading(true));
 	const userInfo = { email: email, password: password };
-	return axios
+	return request
 		.post("/admin/login", userInfo)
 		.then(
 			(res) => {

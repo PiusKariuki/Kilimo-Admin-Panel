@@ -5,7 +5,7 @@ export const User = (
 	state = {
 		tkn: null,
 		errmess: null,
-		loading: false
+		loading: false,
 	},
 	action
 ) => {
@@ -22,7 +22,7 @@ export const User = (
 			return {
 				...state,
 				errmess: action.payload,
-				tkn: null,
+				// tkn: null,
 				loading: false,
 			};
 
@@ -38,7 +38,7 @@ export const User = (
 			return {
 				...state,
 				errmess: null,
-				tkn: null,
+				// tkn: null,
 				loading: true,
 			};
 

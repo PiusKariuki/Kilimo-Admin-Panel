@@ -72,6 +72,7 @@ const sidebarStyle = (theme) => ({
       height: "1px",
       right: "15px",
       width: "calc(100% - 30px)",
+      textDecoration: "underline",
       backgroundColor: "rgba(" + hexToRgb(grayColor[6]) + ", 0.3)",
     },
   },

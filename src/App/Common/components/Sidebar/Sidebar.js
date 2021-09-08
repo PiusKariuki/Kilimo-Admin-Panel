@@ -11,10 +11,12 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
+import { Typography } from "@material-ui/core";
 // core components
 
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
+
 
 const useStyles = makeStyles(styles);
 
@@ -67,19 +69,15 @@ export default function Sidebar(props) {
     </List>
   );
   var brand = (
-    <div className={classes.logo}>
-      <a
-        href="#"
-        className={classNames(classes.logoLink)}
-        target="_blank"
-      >
-        <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
-        </div>
-        {logoText}
-      </a>
-    </div>
-  );
+		<div className={classes.logo}>
+			<a className={classNames(classes.logoLink)} target="_blank">
+				<div className={classes.logoImage}>
+					<img src={logo} alt="logo" className={classes.img} />
+				</div>
+				{logoText}
+			</a>
+		</div>
+	);
   return (
     <div>
       <Hidden mdUp implementation="css">

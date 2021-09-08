@@ -1,35 +1,19 @@
 import React from "react";
 import authRoutes from "../Routes/Routes";
 // react-router-dom imports
-import { Switch, Route,Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import Kilimo from "App/Modules/Kilimo/Container/Kilimo";
+import Landing from "../Views/Landing";
 
-
-const Auth = ({tkn}) => {
-  // .............routing map fn.................
-  const getRoutes = (routes) => {
-    return(
-      // ............conditional for redirecting to conatainer components...........
-    routes.map((prop,key) => <Route path={(prop.path && prop.layout+ prop.path) 
-      || (prop.layout)}
-    component={prop.component} key={key} />)
-    );
-  }
-  // ........end route map fn........................
-
-  return (
-    <Switch>
-      {getRoutes(authRoutes)}
-      redirectWithTkn(tkn);
-      <Redirect from="/" to="/auth/landing" />
-    </Switch>
-  )
-}
+const Auth = ({ tkn }) => {
+	return <>{tkn !=null ? <Kilimo /> : <Landing />}</>;
+};
 // mapstate fn
 const mapStateToProps = (state) => {
-  return{
-    tkn: state.User.tkn,
-  }
-}
+	return {
+		tkn: state.User.tkn,
+	};
+};
 
 export default connect(mapStateToProps, null)(Auth);
