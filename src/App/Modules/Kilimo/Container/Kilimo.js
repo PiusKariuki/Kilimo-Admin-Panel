@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route,Redirect } from "react-router-dom";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,13 +14,12 @@ import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
 import useSidebar from "../../../Common/hooks/useSidebar";
-import Routes from '../Routes/KilimoRoutes';
-import Dashboard from "../Views/Dashboard";
-
+import Routes from "../Routes/KilimoRoutes";
 
 /*................routing mp fn...................*/
 const switchRoutes = (
 	<Switch>
+		
 		{Routes.map((prop, key) => {
 			return (
 				<Route
@@ -30,13 +29,14 @@ const switchRoutes = (
 				/>
 			);
 		})}
+		<Redirect from="/" to="/kilimo/dashboard" />
 	</Switch>
 );
 /*.......................end routing mp fn...................*/
 
 const useStyles = makeStyles(styles);
 
-const Kilimo = ({...rest}) => {
+const Kilimo = ({ ...rest }) => {
 	// initiaize useSidebar hook
 	const [perfectScrollbar] = useSidebar();
 
@@ -87,7 +87,6 @@ const Kilimo = ({...rest}) => {
 				{/* ..............displays the view ....................*/}
 				<div className={classes.content}>
 					<div className={classes.container}>{switchRoutes}</div>
-					{/* <div className={classes.container}><Dashboard /></div> */}
 				</div>
 				{/* ...............view end/////////// */}
 
