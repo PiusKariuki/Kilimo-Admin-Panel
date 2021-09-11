@@ -1,4 +1,3 @@
-import Axios from "axios";
 import swal from "sweetalert";
 import request from "App/Common/Shared/Request";
 

@@ -54,7 +54,8 @@ const Inventory = () => {
 		setOpenDelete,
 		openEdit,
 		setOpenEdit,
-		item    //current selected inventory item for editing
+		item,
+		editInventoryItem, //current selected inventory item for editing
 	] = useInventory();
 
 	return (
@@ -67,7 +68,12 @@ const Inventory = () => {
 				handleDelete={handleDelete}
 			/>
 
-			<EditModal open={openEdit} setOpen={setOpenEdit} item={item} />
+			<EditModal
+				open={openEdit}
+				setOpen={setOpenEdit}
+				item={item}
+				editInventoryItem={editInventoryItem}
+			/>
 			<Grid item xs={12}>
 				<Box className={classes.box}>
 					<Button

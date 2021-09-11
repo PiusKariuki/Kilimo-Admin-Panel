@@ -22,7 +22,6 @@ export const User = (
 			return {
 				...state,
 				errmess: action.payload,
-				// tkn: null,
 				loading: false,
 			};
 
@@ -38,7 +37,6 @@ export const User = (
 			return {
 				...state,
 				errmess: null,
-				// tkn: null,
 				loading: true,
 			};
 

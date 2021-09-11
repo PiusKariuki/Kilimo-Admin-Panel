@@ -15,7 +15,7 @@ import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import PlaylistAddCheckSharpIcon from "@material-ui/icons/PlaylistAddCheckSharp";
 
 import React from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
 	container: {

@@ -7,65 +7,164 @@ import {
 	Typography,
 	Button,
 	FormControl,
-	InputLabel
+	Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useState } from "react";
 
 const useStyles = makeStyles({
 	textfield: {
-		width: "20rem",
-		margin: "1rem",
+		width: "10rem",
+		padding: "1rem",
+	},
+	actions: {
+		justifyContent: "space-between",
 	},
 });
 
-const EditModal = ({ open, setOpen, item }) => {
+const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
+	const [name, setName] = useState(name);
+	const [amount, setAmount] = useState("");
+	const [vendor, setVendor] = useState("");
+	const [unit_weight, setUnit_weight] = useState("");
+	const [department, setDepartment] = useState("");
+
+	React.useEffect(() => {
+		setName(item.name);
+		setAmount(item.amount);
+		setVendor(item.vendor);
+		setUnit_weight(item.unit_weight);
+		setDepartment(item.department);
+	}, [item]);
+
+	const handleClose = () => {
+		setName("");
+		setAmount("");
+		setVendor("");
+		setUnit_weight("");
+		setDepartment("");
+		setOpen(false);
+	};
 	const classes = useStyles();
+	const handleChange = (e) => {
+		switch (e.target.id) {
+			case name: {
+				setName(e.target.value);
+				break;
+			}
+			case amount: {
+				setAmount(e.target.value);
+				break;
+			}
+			case vendor: {
+				setVendor(e.target.value);
+				break;
+			}
+			case unit_weight: {
+				setUnit_weight(e.target.value);
+			}
+			default:
+				return;
+		}
+	};
+
 	return (
 		<Dialog open={open}>
 			<Card>
 				<CardContent>
 					<Typography variant="subtitle2">Edit values here</Typography>
 					<hr />
-					<FormControl>
-						<label><b>Product Name</b></label>
-						<TextField
-							defaultValue={item.name}
-							id="name"
-						/>
-						<label><b>Amount</b></label>
-						<TextField
-							defaultValue={item.amount}
-							id="amount"
-							// className={classes.textfield}
-						/>
-						<TextField
-							defaultValue={item.vendor}
-							id="vendor"
-							className={classes.textfield}
-						/>
-						<TextField
-							defaultValue={item.unit_weight}
-							id="unit_weight"
-							className={classes.textfield}
-						/>
-						<TextField
-							defaultValue={item.department}
-							id="department"
-							className={classes.textfield}
-						/>
+					<FormControl
+						onSubmit={() =>
+							editInventoryItem(name, amount, vendor, unit_weight, department)
+						}
+					>
+						<Grid container>
+							<Grid item xs={12} md={6}>
+								<Typography variant="body1">
+									<b>
+										<i>Name:</i>
+									</b>
+								</Typography>
+								<TextField
+									defaultValue={name}
+									id="name"
+									className={classes.textfield}
+									onChange={handleChange}
+								/>
+							</Grid>
+							<Grid item xs={12} md={6}>
+								<Typography variant="body1">
+									<b>
+										<i>Amount:</i>
+									</b>
+								</Typography>
+								<TextField
+									defaultValue={amount}
+									id="amount"
+									className={classes.textfield}
+									onChange={handleChange}
+								/>
+							</Grid>
+							<Grid item xs={12} md={6}>
+								<Typography variant="body1">
+									<b>
+										<i>Vendor:</i>
+									</b>
+								</Typography>
+								<TextField
+									defaultValue={vendor}
+									id="vendor"
+									className={classes.textfield}
+									onChange={handleChange}
+								/>
+							</Grid>
+
+							<Grid item xs={12} md={6}>
+								<Typography variant="body1">
+									<b>
+										<i>Net weight:</i>
+									</b>
+								</Typography>
+								<TextField
+									defaultValue={unit_weight}
+									id="unit_weight"
+									className={classes.textfield}
+									onChange={handleChange}
+								/>
+							</Grid>
+
+							<Grid item xs={12} md={6}>
+								<Typography variant="body1">
+									<b>
+										<i>Department:</i>
+									</b>
+								</Typography>
+								<TextField
+									defaultValue={department}
+									id="department"
+									className={classes.textfield}
+									onChange={handleChange}
+								/>
+							</Grid>
+						</Grid>
 					</FormControl>
 				</CardContent>
-				<CardActions>
+				<CardActions className={classes.actions}>
 					<Button
+						variant="contained"
+						color="primary"
+						type="submit"
 						size="small"
-						onClick={() => {
-							setOpen(false);
-						}}
+						onClick={() =>
+							editInventoryItem(name, amount, vendor, unit_weight, department)
+						}
 					>
 						Submit
 					</Button>
 					<Button
+						variant="contained"
+						color="secondary"
 						size="small"
 						onClick={() => {
 							setOpen(false);

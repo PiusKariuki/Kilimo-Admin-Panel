@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import request from "App/Common/Shared/Request";
@@ -23,7 +24,7 @@ const useInventory = () => {
 	const [target, setTarget] = useState("");
 	const [openDelete, setOpenDelete] = useState(false);
 	const [openEdit, setOpenEdit] = useState(false);
-	const [item, setItem]=useState([]);
+	const [item, setItem] = useState([]);
 
 	const classes = useStyles();
 
@@ -43,7 +44,6 @@ const useInventory = () => {
 							onClick={(e) => {
 								setTarget(e.currentTarget);
 								getItemById(e.currentTarget.value);
-								editInventoryItem(e.target.value);
 							}}
 						>
 							Edit
@@ -116,7 +116,6 @@ const useInventory = () => {
 
 	const fetchInventory = () => {
 		setLoad(true);
-
 		request
 			.get("/inventory")
 			.then(
@@ -133,20 +132,27 @@ const useInventory = () => {
 			});
 	};
 
-	const editInventoryItem = () => {
-		setOpenEdit(true);
+	const editInventoryItem = (name, amount, vendor, unit_weight, department) => {
+		const values = {
+			name: name,
+			amount: amount,
+			vendor: vendor,
+			unit_weight: unit_weight,
+			department: department,
+		};
+
 		request
-			.put(`/inventory/${target.value}`)
+			.put(`/inventory/${target.value}`, values)
 			.then(
 				(res) => {
-					setLoad(false);
+					
 				},
 				(err) => {
-					setLoad(false);
+					
 				}
 			)
 			.catch((err) => {
-				setLoad(false);
+				
 			});
 	};
 
@@ -175,9 +181,10 @@ const useInventory = () => {
 				(res) => {
 					setItem(res.data);
 				},
-				(err) => {}
+				(err) => { }
 			)
-			.catch((err) => {});
+			.then(err => setOpenEdit(true))
+			.catch((err) => { });
 	};
 
 	return [
@@ -190,7 +197,8 @@ const useInventory = () => {
 		setOpenDelete,
 		openEdit,
 		setOpenEdit,
-		item
+		item,
+		editInventoryItem,
 	];
 };
 

@@ -14,13 +14,12 @@ import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
 import useSidebar from "../../../Common/hooks/useSidebar";
-import Routes from "../Routes/KilimoRoutes";
+import kilimoRoutes from "../Routes/KilimoRoutes";
 
 /*................routing mp fn...................*/
 const switchRoutes = (
 	<Switch>
-		
-		{Routes.map((prop, key) => {
+		{kilimoRoutes.map((prop, key) => {
 			return (
 				<Route
 					path={(prop.path && prop.layout + prop.path) || prop.layout}
@@ -68,7 +67,7 @@ const Kilimo = ({ ...rest }) => {
 	return (
 		<div className={classes.wrapper}>
 			<Sidebar
-				routes={Routes}
+				routes={kilimoRoutes}
 				logoText={"KILIMO ADMIN"}
 				logo={logo}
 				image={image}
@@ -80,7 +79,7 @@ const Kilimo = ({ ...rest }) => {
 			<div className={classes.mainPanel} ref={mainPanel}>
 				{/* topbar */}
 				<Navbar
-					routes={Routes}
+					routes={kilimoRoutes}
 					handleDrawerToggle={handleDrawerToggle}
 					{...rest}
 				/>
