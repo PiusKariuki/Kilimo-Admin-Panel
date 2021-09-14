@@ -28,6 +28,7 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 	const [vendor, setVendor] = useState("");
 	const [unit_weight, setUnit_weight] = useState("");
 	const [department, setDepartment] = useState("");
+	// console.log(amount)
 
 	React.useEffect(() => {
 		setName(item.name);
@@ -46,22 +47,28 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 		setOpen(false);
 	};
 	const classes = useStyles();
+
 	const handleChange = (e) => {
 		switch (e.target.id) {
-			case name: {
+			case "name": {
 				setName(e.target.value);
 				break;
 			}
-			case amount: {
+			case "amount": {
 				setAmount(e.target.value);
 				break;
 			}
-			case vendor: {
+			case "vendor": {
 				setVendor(e.target.value);
 				break;
 			}
-			case unit_weight: {
+			case "unit_weight": {
 				setUnit_weight(e.target.value);
+				break;
+			}
+			case "department": {
+				setDepartment(e.target.value);
+				break;
 			}
 			default:
 				return;
@@ -74,11 +81,7 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 				<CardContent>
 					<Typography variant="subtitle2">Edit values here</Typography>
 					<hr />
-					<FormControl
-						onSubmit={() =>
-							editInventoryItem(name, amount, vendor, unit_weight, department)
-						}
-					>
+					<FormControl>
 						<Grid container>
 							<Grid item xs={12} md={6}>
 								<Typography variant="body1">
@@ -103,7 +106,7 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 									defaultValue={amount}
 									id="amount"
 									className={classes.textfield}
-									onChange={handleChange}
+									onChange={(e) =>handleChange(e)}
 								/>
 							</Grid>
 							<Grid item xs={12} md={6}>
