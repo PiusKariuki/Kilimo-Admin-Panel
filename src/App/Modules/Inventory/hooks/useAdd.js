@@ -9,6 +9,8 @@ const useAdd = () => {
   const [vendor, setVendor] = useState("");
   const [unit_weight, setUnit_weight] = useState("");
   const [department, setDepartment] = useState("");
+  const [errors, setErrors] = useState("");
+  const [openAdd, setOpenAdd] = useState(false);
 
   const handleChange = (e) => {
     switch (e.target.id) {
@@ -48,18 +50,21 @@ const useAdd = () => {
       })
       .then(
         (res) => {
-          console.log(res.data);
-          //   swal(res.message, " ", "success");
+          swal("Successful", "item added to inventory", "success");
+          setName("");
+          setAmount("");
+          setVendor("");
+          setUnit_weight("");
+          setDepartment("");
+          setOpenAdd(false);
         },
         (err) => {
-          let error = err.response.data;
-           
-          console.log(error.documentElement.querySelector("h1"));
+          setErrors(err.response.data);
         }
       )
-      .then((err) => console.log(err));
+      .catch((err) => setErrors(err.response.data));
   };
 
-  return [addItem, handleChange];
+  return [addItem, handleChange, errors, setErrors,openAdd, setOpenAdd];
 };
 export default useAdd;

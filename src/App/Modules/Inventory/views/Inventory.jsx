@@ -46,7 +46,6 @@ const useStyles = makeStyles({
 });
 
 const Inventory = ({ email }) => {
-  const [openAdd, setOpenAdd] = useState(false);
   React.useEffect(() => {
     fetchInventory();
   }, []);
@@ -67,7 +66,8 @@ const Inventory = ({ email }) => {
     editInventoryItem,
   ] = useInventory();
 
-  const [addItem, handleChange] = useAdd();
+  const [addItem, handleChange, errors, setErrors, openAdd, setOpenAdd] =
+    useAdd();
   return (
     <Grid container className={classes.container}>
       <DeletePrompt
@@ -91,7 +91,9 @@ const Inventory = ({ email }) => {
         open={openAdd}
         fetchInventory={fetchInventory}
         handleChange={handleChange}
-		addItem={addItem}
+        addItem={addItem}
+        errors={errors}
+        setErrors={setErrors}
       />
 
       <Box className={classes.box}>

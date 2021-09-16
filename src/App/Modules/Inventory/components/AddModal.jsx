@@ -13,6 +13,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 
 const useStyles = makeStyles({
+  errors: {
+    marginBottom: "0.5rem"
+  },
   textfield: {
     width: "10rem",
     padding: "1rem",
@@ -22,7 +25,15 @@ const useStyles = makeStyles({
   },
 });
 
-const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
+const AddModal = ({
+  open,
+  addItem,
+  setOpen,
+  handleChange,
+  fetchInventory,
+  errors,
+  setErrors
+}) => {
   const classes = useStyles();
 
   return (
@@ -44,6 +55,9 @@ const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography variant="body2" color="error" className={classes.errors}>
+                  {errors.name && errors.name.message}
+                </Typography>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Typography variant="body1">
@@ -56,6 +70,9 @@ const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
                   className={classes.textfield}
                   onChange={(e) => handleChange(e)}
                 />
+                <Typography variant="body2" color="error" className={classes.errors}>
+                  {errors.amount && errors.amount.message}
+                </Typography>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Typography variant="body1">
@@ -68,6 +85,9 @@ const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography variant="body2" color="error" className={classes.errors}>
+                  {errors.vendor && errors.vendor.message}
+                </Typography>
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -81,6 +101,9 @@ const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography variant="body2" color="error" className={classes.errors}>
+                  {errors.unit_weight && errors.unit_weight.message}
+                </Typography>
               </Grid>
 
               <Grid item xs={12} md={6}>
@@ -94,6 +117,9 @@ const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography variant="body2" color="error" className={classes.errors}>
+                  {errors.department && errors.department.message}
+                </Typography>
               </Grid>
             </Grid>
           </FormControl>
@@ -103,7 +129,12 @@ const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
             color="primary"
             size="small"
             variant="contained"
-            onClick={addItem}
+            onClick={() => {
+              addItem();
+              fetchInventory();
+              // setOpen(false);
+              setErrors("");
+            }}
           >
             Submit
           </Button>
@@ -114,6 +145,7 @@ const AddModal = ({ open, addItem, setOpen, handleChange, fetchInventory }) => {
             onClick={() => {
               fetchInventory();
               setOpen(false);
+              setErrors("");
             }}
           >
             Close
