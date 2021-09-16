@@ -133,7 +133,14 @@ const useInventory = () => {
       });
   };
 
-  const editInventoryItem = (name, amount, vendor, unit_weight, department) => {
+  const editInventoryItem = (
+    name,
+    amount,
+    vendor,
+    unit_weight,
+    department,
+    email
+  ) => {
     request
       .put(`/inventory/${target.value}`, {
         name: name,
@@ -141,6 +148,7 @@ const useInventory = () => {
         vendor: vendor,
         unit_weight: unit_weight,
         department: department,
+        email: email,
       })
       .then(
         (res) => {

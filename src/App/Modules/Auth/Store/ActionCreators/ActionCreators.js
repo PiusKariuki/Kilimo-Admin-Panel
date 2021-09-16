@@ -15,7 +15,7 @@ export const Login = (email, password) => (dispatch) => {
 		.post("/admin/login", userInfo)
 		.then(
 			(res) => {
-				dispatch(loggedIn(res.data.token));
+				dispatch(loggedIn(res.data.token,res.data.email));
 			},
 			(err) => dispatch(logFailed(err?.response?.data))
 		)
@@ -24,9 +24,10 @@ export const Login = (email, password) => (dispatch) => {
 		});
 };
 
-export const loggedIn = (tkn) => ({
+export const loggedIn = (tkn,email) => ({
 	type: ActionTypes.LOGGED_IN,
 	payload: tkn,
+	email
 });
 
 export const logFailed = (errors) => ({

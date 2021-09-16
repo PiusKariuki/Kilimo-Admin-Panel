@@ -22,13 +22,12 @@ const useStyles = makeStyles({
 	},
 });
 
-const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
+const EditModal = ({ open, setOpen, item, editInventoryItem, email, fetchInventory }) => {
 	const [name, setName] = useState(name);
 	const [amount, setAmount] = useState("");
 	const [vendor, setVendor] = useState("");
 	const [unit_weight, setUnit_weight] = useState("");
 	const [department, setDepartment] = useState("");
-	// console.log(amount)
 
 	React.useEffect(() => {
 		setName(item.name);
@@ -38,14 +37,8 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 		setDepartment(item.department);
 	}, [item]);
 
-	const handleClose = () => {
-		setName("");
-		setAmount("");
-		setVendor("");
-		setUnit_weight("");
-		setDepartment("");
-		setOpen(false);
-	};
+
+
 	const classes = useStyles();
 
 	const handleChange = (e) => {
@@ -106,7 +99,7 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 									defaultValue={amount}
 									id="amount"
 									className={classes.textfield}
-									onChange={(e) =>handleChange(e)}
+									onChange={(e) => handleChange(e)}
 								/>
 							</Grid>
 							<Grid item xs={12} md={6}>
@@ -159,9 +152,11 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 						color="primary"
 						type="submit"
 						size="small"
-						onClick={() =>
-							editInventoryItem(name, amount, vendor, unit_weight, department)
-						}
+						onClick={() => {
+							editInventoryItem(name, amount, vendor, unit_weight, department, email);
+							setOpen(false);
+							fetchInventory();
+						}}
 					>
 						Submit
 					</Button>
@@ -171,6 +166,7 @@ const EditModal = ({ open, setOpen, item, editInventoryItem }) => {
 						size="small"
 						onClick={() => {
 							setOpen(false);
+							fetchInventory();
 						}}
 					>
 						Close
