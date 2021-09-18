@@ -35,10 +35,7 @@ const Dashboard = () => {
 		<Grid container className={classes.container}>
 			<Grid item xs={12} sm={4} md={3} lg={3} className={classes.items}>
 				<Box>
-					<Card
-						className={classes.card}
-						onClick={() => history.push("/kilimo/inventory")}
-					>
+					<Card onClick={() => history.push("/kilimo/inventory")}>
 						<CardContent>
 							<Typography variant="subtitle1">
 								<StoreMallDirectorySharpIcon />
@@ -59,7 +56,7 @@ const Dashboard = () => {
 
 			<Grid item xs={12} sm={4} md={3} lg={3} className={classes.items}>
 				<Box>
-					<Card>
+					<Card onClick={() => history.push("/kilimo/logs")}>
 						<CardContent>
 							<Typography variant="subtitle1">
 								<StorageOutlinedIcon />
