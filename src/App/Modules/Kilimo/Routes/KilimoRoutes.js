@@ -4,6 +4,8 @@ import StoreMallDirectorySharpIcon from "@material-ui/icons/StoreMallDirectorySh
 import Inventory from '../../Inventory/views/Inventory';
 import ListIcon from "@material-ui/icons/List";
 import Logs from "../../Logs/views/Logs";
+import PetsIcon from "@material-ui/icons/Pets";
+import Animals from "../../Animals/views/Animals"
 
 
 const kilimoRoutes = [
@@ -27,6 +29,13 @@ const kilimoRoutes = [
 		name: "Logs",
 		icon: ListIcon,
 		component: Logs,
+		layout: "/kilimo",
+	},
+	{
+		path: "/animals",
+		name: "Animals",
+		icon: PetsIcon,
+		component: Animals,
 		layout: "/kilimo",
 	},
 ];

@@ -49,21 +49,25 @@ const useAdd = () => {
       })
       .then(
         (res) => {
+          fetchInventory();
           swal("Successful", "item added to inventory", "success");
           setName("");
           setAmount("");
           setVendor("");
           setUnit_weight("");
           setDepartment("");
+          setErrors("");
           setOpenAdd(false);
         },
         (err) => {
           setErrors(err.response.data);
         }
       )
-      .catch((err) => setErrors(err.response.data));
+      .catch((err) => {
+        setErrors(err.response.data);
+      });
   };
 
-  return [addItem, handleChange, errors, setErrors,openAdd, setOpenAdd];
+  return [addItem, handleChange, errors, setErrors, openAdd, setOpenAdd];
 };
 export default useAdd;

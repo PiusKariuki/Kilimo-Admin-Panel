@@ -36,7 +36,7 @@ const DeletePrompt = ({ open, name, setOpen, handleDelete, value }) => {
 						color="primary"
 						onClick={() => {
 							handleDelete(value);
-							setOpen(false);
+							// setOpen(false);
 						}}
 					>
 						Confirm

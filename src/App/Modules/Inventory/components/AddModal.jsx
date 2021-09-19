@@ -126,13 +126,12 @@ const AddModal = ({
         </CardContent>
         <CardActions className={classes.actions}>
           <Button
+            type="button"
             color="primary"
             size="small"
             variant="contained"
             onClick={() => {
               addItem();
-              fetchInventory();
-              // setOpen(false);
               setErrors("");
             }}
           >

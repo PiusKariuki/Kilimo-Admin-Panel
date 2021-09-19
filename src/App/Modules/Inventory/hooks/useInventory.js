@@ -111,8 +111,9 @@ const useInventory = () => {
 
   /*delete handler */
   const handleDelete = (e) => {
-    setOpenDelete(true);
+    setOpenDelete(false);
     deleteInventoryItem(target.value);
+    fetchInventory();
   };
 
   const fetchInventory = () => {
@@ -152,7 +153,9 @@ const useInventory = () => {
       })
       .then(
         (res) => {
-          swal("successful!", "", "success");
+          swal("successful!", `${name} has been updated`, "success");
+          fetchInventory();
+          setOpenEdit(false)
         },
         (err) => {
           swal("error", err.message, "error");

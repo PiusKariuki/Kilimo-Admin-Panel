@@ -6,9 +6,6 @@
     "editor.formatOnSave": true
   },
   "files.autoSave": "afterDelay",
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true
 }

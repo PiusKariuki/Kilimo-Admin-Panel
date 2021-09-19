@@ -1,22 +1,33 @@
 import React from "react";
 import { Grid, Button, Box } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import { MDBDataTableV5 } from "mdbreact";
+import { makeStyles } from "@material-ui/core/styles";
 import useSpinner from "App/Common/Spinner/Spinner";
-import useLog from "../hooks/useLog";
+import useFetch from "../hooks/useFetch";
 
 const useStyles = makeStyles({
+  buttons: {
+    justifyContent: "space-between",
+  },
   box: {
     backgroundColor: "white",
     margintop: "0",
     padding: "0.5rem",
   },
-  btn: {
-    backgroundColor: "green",
+  container: {
+    margin: "0",
+    justifyContent: "space-around",
+  },
+  btns: {
+    margin: "0.5rem",
+  },
+  refresh: {
+    justifySelf: "end",
     color: "white",
+    backgroundColor: "green",
     "&:hover": {
       color: "white",
       backgroundColor: "red",
@@ -24,27 +35,21 @@ const useStyles = makeStyles({
   },
 });
 
-const Logs = () => {
-  const classes = useStyles();
-  const [getLogs, load, data] = useLog();
-  const [renderSpinner] = useSpinner();
 
-  React.useEffect(() => {
-    getLogs();
-  }, []);
+
+const Animals = () => {
+  const classes = useStyles();
+  const [getAnimals, load, data] = useFetch();
+  const [renderSpinner] = useSpinner();
+  React.useEffect(()=> {
+    getAnimals();
+  },[]);
 
   return (
     <Grid container>
-      {renderSpinner(load)}
       <Grid item xs={12}>
         <Box className={classes.box}>
-          <Button
-            variant="contained"
-            className={classes.btn}
-            onClick={() => getLogs()}
-          >
-            Refresh
-          </Button>
+          {renderSpinner(load)}
           <MDBDataTableV5
             responsive
             striped
@@ -60,4 +65,4 @@ const Logs = () => {
   );
 };
 
-export default Logs;
+export default Animals;
