@@ -49,15 +49,15 @@ const useAdd = () => {
       })
       .then(
         (res) => {
-          fetchInventory();
+          setOpenAdd(false);
+          
           swal("Successful", "item added to inventory", "success");
           setName("");
           setAmount("");
           setVendor("");
           setUnit_weight("");
           setDepartment("");
-          setErrors("");
-          setOpenAdd(false);
+          setErrors("");  
         },
         (err) => {
           setErrors(err.response.data);

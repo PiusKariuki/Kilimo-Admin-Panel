@@ -23,12 +23,14 @@ const useFetch = () => {
   const classes = useStyles();
   const [animals, setAnimals] = useState([]);
   const [load, setLoad] = useState(false);
+  const [department, setDepartment]= useState("");
 
   /* ...............http fetch request..................*/
-  const getAnimals = () => {
+  const getAnimals = (department) => {
+    setDepartment(department);
     setLoad(true);
     request
-      .get(`animals/pigs`)
+      .get(`animals/${department}`)
       .then(
         (res) => {
           setAnimals(res.data);
@@ -128,7 +130,7 @@ const useFetch = () => {
     rows: animalsWithBtns(animals),
   };
 
-  return [getAnimals, load, data];
+  return [getAnimals, load, data,department];
 };
 
 export default useFetch;

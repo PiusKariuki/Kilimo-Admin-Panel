@@ -154,6 +154,7 @@ const EditModal = ({ open, setOpen, item, editInventoryItem, email, fetchInvento
 						size="small"
 						onClick={() => {
 							editInventoryItem(name, amount, vendor, unit_weight, department, email);
+							fetchInventory();
 						}}
 					>
 						Submit

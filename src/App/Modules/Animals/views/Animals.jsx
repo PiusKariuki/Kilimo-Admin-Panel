@@ -1,5 +1,13 @@
 import React from "react";
-import { Grid, Button, Box } from "@material-ui/core";
+import {
+  Grid,
+  Button,
+  Box,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+} from "@material-ui/core";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -9,6 +17,13 @@ import useSpinner from "App/Common/Spinner/Spinner";
 import useFetch from "../hooks/useFetch";
 
 const useStyles = makeStyles({
+  formControl: {
+    width: "9rem",
+  },
+  formLabel: {
+    color: "red",
+    fontWeight: "bold",
+  },
   buttons: {
     justifyContent: "space-between",
   },
@@ -35,22 +50,42 @@ const useStyles = makeStyles({
   },
 });
 
-
-
 const Animals = () => {
   const classes = useStyles();
-  const [getAnimals, load, data] = useFetch();
+  const [getAnimals, load, data, department] = useFetch();
   const [renderSpinner] = useSpinner();
-  React.useEffect(()=> {
+  React.useEffect(() => {
     getAnimals();
-  },[]);
+  }, []);
 
   return (
     <Grid container>
       <Grid item xs={12}>
         <Box className={classes.box}>
+          <FormControl className={classes.formControl}>
+            <InputLabel
+              id="department"
+              className={classes.formLabel}
+              value={department}
+            >
+              Department
+            </InputLabel>
+            <Select
+              labelId="department"
+              id="department"
+              value={department}
+              onChange={(e) => getAnimals(e.target.value)}
+            >
+              <MenuItem value="pigs">Pigs</MenuItem>
+              <MenuItem value="dairies">Dairies</MenuItem>
+              <MenuItem value="beefs">Beef</MenuItem>
+              <MenuItem value="layers">Layers</MenuItem>
+            </Select>
+          </FormControl>
+
           {renderSpinner(load)}
           <MDBDataTableV5
+            hover
             responsive
             striped
             bordered

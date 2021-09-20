@@ -35,7 +35,6 @@ const AddModal = ({
   setErrors
 }) => {
   const classes = useStyles();
-
   return (
     <Dialog open={open}>
       <Card>
@@ -55,8 +54,12 @@ const AddModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
-                <Typography variant="body2" color="error" className={classes.errors}>
-                  {errors.name && errors.name.message}
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.name && errors.name.message}
                 </Typography>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -70,8 +73,12 @@ const AddModal = ({
                   className={classes.textfield}
                   onChange={(e) => handleChange(e)}
                 />
-                <Typography variant="body2" color="error" className={classes.errors}>
-                  {errors.amount && errors.amount.message}
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.amount && errors.amount.message}
                 </Typography>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -85,8 +92,12 @@ const AddModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
-                <Typography variant="body2" color="error" className={classes.errors}>
-                  {errors.vendor && errors.vendor.message}
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.vendor && errors.vendor.message}
                 </Typography>
               </Grid>
 
@@ -101,8 +112,12 @@ const AddModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
-                <Typography variant="body2" color="error" className={classes.errors}>
-                  {errors.unit_weight && errors.unit_weight.message}
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.unit_weight && errors.unit_weight.message}
                 </Typography>
               </Grid>
 
@@ -117,7 +132,11 @@ const AddModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
-                <Typography variant="body2" color="error" className={classes.errors}>
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
                   {errors.department && errors.department.message}
                 </Typography>
               </Grid>
@@ -132,7 +151,7 @@ const AddModal = ({
             variant="contained"
             onClick={() => {
               addItem();
-              setErrors("");
+              fetchInventory();
             }}
           >
             Submit
