@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Grid,
   Button,
@@ -15,6 +15,7 @@ import { MDBDataTableV5 } from "mdbreact";
 import { makeStyles } from "@material-ui/core/styles";
 import useSpinner from "App/Common/Spinner/Spinner";
 import useFetch from "../hooks/useFetch";
+import ViewDialog from "../components/ViewDialog";
 
 const useStyles = makeStyles({
   formControl: {
@@ -52,14 +53,31 @@ const useStyles = makeStyles({
 
 const Animals = () => {
   const classes = useStyles();
-  const [getAnimals, load, data, department] = useFetch();
+
+  const [
+    getAnimals,
+    load,
+    data,
+    department,
+    setDepartment,
+    animal,
+    openEdit,
+    setOpenEdit,
+  ] = useFetch();
   const [renderSpinner] = useSpinner();
   React.useEffect(() => {
     getAnimals();
-  }, []);
+  }, [setDepartment]);
 
   return (
     <Grid container>
+      <ViewDialog
+        open={openEdit}
+        setOpen={setOpenEdit}
+        animal={animal}
+        department={department}
+      />
+
       <Grid item xs={12}>
         <Box className={classes.box}>
           <FormControl className={classes.formControl}>
@@ -74,7 +92,10 @@ const Animals = () => {
               labelId="department"
               id="department"
               value={department}
-              onChange={(e) => getAnimals(e.target.value)}
+              onChange={(e) => {
+                getAnimals(e.target.value);
+                setDepartment(e.target.value);
+              }}
             >
               <MenuItem value="pigs">Pigs</MenuItem>
               <MenuItem value="dairies">Dairies</MenuItem>

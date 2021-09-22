@@ -1,33 +1,18 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
 import request from "App/Common/Shared/Request";
 import { useState } from "react";
 import swal from "sweetalert";
-
-const useStyles = makeStyles({
-  box: {
-    backgroundColor: "white",
-    margintop: "0",
-    padding: "0.5rem",
-  },
-  container: {
-    margin: "0",
-  },
-  btns: {
-    margin: "0.5rem",
-  },
-});
+import { columns } from "../shared/columns";
+import { dataWithActions } from "../shared/data";
 
 const useFetch = () => {
-  const classes = useStyles();
   const [animals, setAnimals] = useState([]);
   const [load, setLoad] = useState(false);
-  const [department, setDepartment]= useState("");
+  const [department, setDepartment] = useState("");
+  const [animal, setAnimal] = useState("");
+  const [openEdit, setOpenEdit] = useState(false);
 
-  /* ...............http fetch request..................*/
+  /* ...............get all animals in dept....................*/
   const getAnimals = (department) => {
-    setDepartment(department);
     setLoad(true);
     request
       .get(`animals/${department}`)
@@ -38,99 +23,50 @@ const useFetch = () => {
         },
         (err) => {
           setLoad(false);
-          swal("Something went wrong", "", "error");
+          swal("Select a department", "", "error");
         }
       )
       .catch((err) => {
         setLoad(false);
-        swal("Something went wrong", "", "error");
+        swal("Select a department", "", "error");
       });
   };
+  /*......................................................................*/
 
-  /*...........append buttons to data .............*/
-  const animalsWithBtns = (data) =>
-    data.map((obj) =>
-      Object.assign(obj, {
-        btns: (
-          <>
-            <Button
-              value={obj._id}
-              size="small"
-              name={obj.name}
-              color="primary"
-              variant="contained"
-              className={classes.btns}
-              onClick={(e) => {
-                setTarget(e.currentTarget);
-                getItemById(e.currentTarget.value);
-              }}
-            >
-              view
-            </Button>
-            <Button
-              value={obj._id}
-              size="small"
-              name={obj.name}
-              color="primary"
-              variant="contained"
-              className={classes.btns}
-              onClick={(e) => {
-                setTarget(e.currentTarget);
-                getItemById(e.currentTarget.value);
-              }}
-            >
-              Edit
-            </Button>
-            <Button
-              type="button"
-              value={obj._id}
-              id={obj.name}
-              size="small"
-              color="secondary"
-              variant="contained"
-              className={classes.btns}
-              onClick={(e) => {
-                setTarget(e.currentTarget);
-                setOpenDelete(true);
-              }}
-            >
-              delete
-            </Button>
-          </>
-        ),
-      })
-    );
+  /*...........get animal by id function..................................*/
+  const getDetails = (department, animalID) => {
+    request
+      .get(`/animals/${department}/${animalID}`)
+      .then(
+        (res) => {
+          setAnimal(res.data);
+        },
+        (err) => {
+          swal("error", "animal not found", "error");
+        }
+      )
+      .then(() => setOpenEdit(true))
+      .catch((err) => {
+        swal("error", "animal not found", "error");
+      });
+  };
+  /*................................................................................*/
 
   const data = {
-    columns: [
-      {
-        label: "Name",
-        field: "name",
-        sort: "asc",
-        width: 120,
-      },
-      {
-        label: "Age in weeks",
-        field: "age_in_weeks",
-        width: 100,
-      },
-      {
-        label: "Breed",
-        field: "breed",
-        sort: "asc",
-        width: 50,
-      },
-      {
-        label: "Actions",
-        field: "btns",
-        sort: "asc",
-        width: 200,
-      },
-    ],
-    rows: animalsWithBtns(animals),
+    columns,
+    rows: dataWithActions(animals, department,getDetails),
   };
 
-  return [getAnimals, load, data,department];
+  return [
+    getAnimals,
+    load,
+    data,
+    department,
+    setDepartment,
+    animal,
+    openEdit,
+    setOpenEdit,
+  ];
 };
 
 export default useFetch;
