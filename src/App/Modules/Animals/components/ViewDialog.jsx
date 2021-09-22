@@ -8,21 +8,29 @@ import {
   Button,
   FormControl,
   Grid,
+  Chip,
+  InputLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 
 const useStyles = makeStyles({
   textfield: {
-    width: "10rem",
+    width: "15rem",
     padding: "1rem",
+  },
+  actions: {
+    justifyContent: "space-between",
+  },
+  dialog: {
+    overflow: "scroll",
   },
   actions: {
     justifyContent: "space-between",
   },
 });
 
-const ViewDialog = ({open, setOpen,animal, department }) => {
+const ViewDialog = ({ open, setOpen, animal, department }) => {
   const [name, setName] = useState("");
   const [breed, setBreed] = useState("");
   const [age, setAge] = useState("");
@@ -35,7 +43,7 @@ const ViewDialog = ({open, setOpen,animal, department }) => {
     setName(animal.name);
     setBreed(animal.breed);
     setHistory(animal.history);
-    setAge(animal.age);
+    setAge(animal.age_in_weeks);
     setTagNo(animal._id);
     setWeight(animal.weekly_weight);
     if (department === "layers") setProducts(animal.eggs_weekly);
@@ -68,98 +76,155 @@ const ViewDialog = ({open, setOpen,animal, department }) => {
         return;
     }
   };
+  const clearAttributes = () => {
+    setName("");
+    setBreed("");
+    setHistory("");
+    setAge("");
+    setTagNo("");
+    setWeight("");
+    setProducts("");
+  };
 
   const classes = useStyles();
   return (
-    <Dialog open={open}>
+    <Dialog open={open} className={classes.dialog} >
       <Card>
-        <Typography variant="subtitle2">Edit values here</Typography>
-        <hr />
-        <FormControl>
-          <Grid container>
-            <Grid item xs={12} md={6}>
-              <Typography variant="body1">
-                <b>
-                  <i>Name:</i>
-                </b>
-              </Typography>
-              <TextField
-                defaultValue={name}
-                id="name"
-                className={classes.textfield}
-                onChange={handleChange}
-              />
+        <CardContent>
+          <Typography variant="subtitle2">Edit values here</Typography>
+          <hr />
+          <FormControl>
+            <Grid container>
+              {/* ....................NAME.............................. */}
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Name:</i>
+                  </b>
+                </Typography>
+                <TextField
+                  defaultValue={name}
+                  id="name"
+                  className={classes.textfield}
+                  onChange={handleChange}
+                />
+              </Grid>
+              {/* ......................BREEED..................................... */}
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Breed:</i>
+                  </b>
+                </Typography>
+                <TextField
+                  defaultValue={breed}
+                  id="breed"
+                  className={classes.textfield}
+                  onChange={handleChange}
+                />
+              </Grid>
+              {/* ..................................AGE................................................ */}
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Age in weeks:</i>
+                  </b>
+                </Typography>
+                <TextField
+                  defaultValue={age}
+                  id="age"
+                  className={classes.textfield}
+                  onChange={handleChange}
+                />
+              </Grid>
+              {/* ...................................HISTORY.......................................................... */}
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>History:</i>
+                  </b>
+                </Typography>
+                {history &&
+                  history.map((item, key) => (
+                    <TextField
+                      key={key}
+                      defaultValue={item}
+                      id="history"
+                      className={classes.textfield}
+                      onChange={handleChange}
+                    />
+                  ))}
+              </Grid>
+              {/* .................................WEEKLY WEIGHT............................................... */}
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Weekly weight:</i>
+                  </b>
+                </Typography>
+                <Grid container>
+                  {weight &&
+                    weight.map((item, key) => (
+                      <Grid item xs={12}>
+                        <TextField
+                          defaultValue={
+                            new Date(item.date).toLocaleDateString() +
+                            ":           " +
+                            item.weight
+                          }
+                          id="weight"
+                          className={classes.weight}
+                          onChange={handleChange}
+                        />
+                      </Grid>
+                    ))}
+                </Grid>
+              </Grid>
+              {/* ..............................PRODUCTS.............................................................. */}
+              <Grid item xs={12} md={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Products:</i>
+                  </b>
+                </Typography>
+                <Grid container>
+                  {products &&
+                    products.map((item, key) => (
+                      <Grid item xs={12}>
+                        <TextField
+                          defaultValue={
+                            new Date(item.date).toLocaleDateString() +":       " +
+                             ( item.litres || item.number)
+                          }
+                          id="products"
+                          className={classes.textfield}
+                          onChange={handleChange}
+                        />
+                      </Grid>
+                    ))}
+                </Grid>
+              </Grid>
+              {/* .............................................................................. */}
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="body1">
-                <b>
-                  <i>Breed:</i>
-                </b>
-              </Typography>
-              <TextField
-                defaultValue={breed}
-                id="breed"
-                className={classes.textfield}
-                onChange={handleChange}
-              />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Typography variant="body1">
-                <b>
-                  <i>Age in weeks:</i>
-                </b>
-              </Typography>
-              <TextField
-                defaultValue={age}
-                id="age"
-                className={classes.textfield}
-                onChange={handleChange}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Typography variant="body1">
-                <b>
-                  <i>Products:</i>
-                </b>
-              </Typography>
-              <TextField
-                defaultValue={products}
-                id="products"
-                className={classes.textfield}
-                onChange={handleChange}
-              />
-            </Grid>
-
-            <Grid item xs={12} md={6}>
-              <Typography variant="body1">
-                <b>
-                  <i>Weekly weight:</i>
-                </b>
-              </Typography>
-              <TextField
-                defaultValue={weight}
-                id="weight"
-                className={classes.textfield}
-                onChange={handleChange}
-              />
-            </Grid>
-          </Grid>
-        </FormControl>
-
-        <CardActions>
+          </FormControl>
+        </CardContent>
+        <CardActions className={classes.actions}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setOpen(false);
+              clearAttributes();
+            }}
+          >
+            Submit
+          </Button>
           <Button
             variant="contained"
             color="secondary"
             onClick={() => {
               setOpen(false);
-              setName("");
-              setBreed("");
-              setHistory("");
-              setAge("");
-              setTagNo("");
-              setWeight("");
-              setProducts("");
+              clearAttributes();
             }}
           >
             Close

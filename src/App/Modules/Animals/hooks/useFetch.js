@@ -52,6 +52,11 @@ const useFetch = () => {
   };
   /*................................................................................*/
 
+  /*..................................update animal.................................*/
+  const updateAnimal = (animalID,) => {
+    request.put(`/animals/${department}/${animalID}`)
+    .then()
+  }
   const data = {
     columns,
     rows: dataWithActions(animals, department,getDetails),
