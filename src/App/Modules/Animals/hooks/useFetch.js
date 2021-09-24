@@ -10,6 +10,7 @@ const useFetch = () => {
   const [department, setDepartment] = useState("");
   const [animal, setAnimal] = useState("");
   const [openEdit, setOpenEdit] = useState(false);
+  const [errors, setErrors] = useState()
 
   /* ...............get all animals in dept....................*/
   const getAnimals = (department) => {
@@ -23,12 +24,12 @@ const useFetch = () => {
         },
         (err) => {
           setLoad(false);
-          swal("Select a department", "", "error");
+          // swal("Select a department", "", "error");
         }
       )
       .catch((err) => {
         setLoad(false);
-        swal("Select a department", "", "error");
+        // swal("Select a department", "", "error");
       });
   };
   /*......................................................................*/
@@ -52,11 +53,7 @@ const useFetch = () => {
   };
   /*................................................................................*/
 
-  /*..................................update animal.................................*/
-  const updateAnimal = (animalID,) => {
-    request.put(`/animals/${department}/${animalID}`)
-    .then()
-  }
+
   const data = {
     columns,
     rows: dataWithActions(animals, department,getDetails),

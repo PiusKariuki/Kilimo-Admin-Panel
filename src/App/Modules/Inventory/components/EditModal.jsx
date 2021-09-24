@@ -82,7 +82,7 @@ const EditModal = ({
           <FormControl>
             <Grid container>
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Name:</i>
                   </b>
@@ -95,7 +95,7 @@ const EditModal = ({
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Amount:</i>
                   </b>
@@ -108,7 +108,7 @@ const EditModal = ({
                 />
               </Grid>
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Vendor:</i>
                   </b>
@@ -122,7 +122,7 @@ const EditModal = ({
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Net weight:</i>
                   </b>
@@ -136,7 +136,7 @@ const EditModal = ({
               </Grid>
 
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Department:</i>
                   </b>
@@ -151,6 +151,7 @@ const EditModal = ({
             </Grid>
           </FormControl>
         </CardContent>
+    {/* ...........................Actions............................................................ */}
         <CardActions className={classes.actions}>
           <Button
             variant="contained"

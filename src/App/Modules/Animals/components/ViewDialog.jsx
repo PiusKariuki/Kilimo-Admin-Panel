@@ -8,11 +8,15 @@ import {
   Button,
   FormControl,
   Grid,
-  Chip,
-  InputLabel,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
 } from "@material-ui/core";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React from "react";
+import useView from "../hooks/useView";
 
 const useStyles = makeStyles({
   textfield: {
@@ -21,23 +25,33 @@ const useStyles = makeStyles({
   },
   actions: {
     justifyContent: "space-between",
+    paddingBottom: "2rem",
   },
-  dialog: {
-    overflow: "scroll",
-  },
-  actions: {
-    justifyContent: "space-between",
+  listItems: {
+    margin: "0",
   },
 });
 
-const ViewDialog = ({ open, setOpen, animal, department }) => {
-  const [name, setName] = useState("");
-  const [breed, setBreed] = useState("");
-  const [age, setAge] = useState("");
-  const [history, setHistory] = useState([]);
-  const [tagNo, setTagNo] = useState("");
-  const [weight, setWeight] = useState("");
-  const [products, setProducts] = useState("");
+const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
+  const [
+    handleChange,
+    name,
+    setName,
+    breed,
+    setBreed,
+    age,
+    setAge,
+    history,
+    setHistory,
+    tagNo,
+    setTagNo,
+    weight,
+    setWeight,
+    products,
+    setProducts,
+    clearAttributes,
+    updateAnimal,
+  ] = useView();
 
   React.useEffect(() => {
     setName(animal.name);
@@ -50,54 +64,20 @@ const ViewDialog = ({ open, setOpen, animal, department }) => {
     else if (department === "dairies") setProducts(animal.milk_daily);
   }, [open]);
 
-  const handleChange = (e) => {
-    switch (e.target.id) {
-      case "name": {
-        setName(e.target.value);
-        break;
-      }
-      case "breed": {
-        setBreed(e.target.value);
-        break;
-      }
-      case "age": {
-        setAge(e.target.value);
-        break;
-      }
-      case "weight": {
-        setWeight(e.target.value);
-        break;
-      }
-      case "history": {
-        setHistory(e.target.value);
-        break;
-      }
-      default:
-        return;
-    }
-  };
-  const clearAttributes = () => {
-    setName("");
-    setBreed("");
-    setHistory("");
-    setAge("");
-    setTagNo("");
-    setWeight("");
-    setProducts("");
-  };
-
   const classes = useStyles();
   return (
-    <Dialog open={open} className={classes.dialog} >
+    <Dialog open={open}>
       <Card>
         <CardContent>
-          <Typography variant="subtitle2">Edit values here</Typography>
+          <Typography variant="subtitle1" color="secondary">
+            Edit values here
+          </Typography>
           <hr />
           <FormControl>
             <Grid container>
               {/* ....................NAME.............................. */}
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Name:</i>
                   </b>
@@ -109,9 +89,9 @@ const ViewDialog = ({ open, setOpen, animal, department }) => {
                   onChange={handleChange}
                 />
               </Grid>
-              {/* ......................BREEED..................................... */}
+              {/* ......................BREED..................................... */}
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Breed:</i>
                   </b>
@@ -125,7 +105,7 @@ const ViewDialog = ({ open, setOpen, animal, department }) => {
               </Grid>
               {/* ..................................AGE................................................ */}
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Age in weeks:</i>
                   </b>
@@ -137,72 +117,76 @@ const ViewDialog = ({ open, setOpen, animal, department }) => {
                   onChange={handleChange}
                 />
               </Grid>
-              {/* ...................................HISTORY.......................................................... */}
+              {/* ...................................HISTORY............................................. */}
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>History:</i>
                   </b>
                 </Typography>
-                {history &&
-                  history.map((item, key) => (
-                    <TextField
-                      key={key}
-                      defaultValue={item}
-                      id="history"
-                      className={classes.textfield}
-                      onChange={handleChange}
-                    />
-                  ))}
+                <TextField
+                  rows={4}
+                  multiline
+                  defaultValue={history}
+                  id="history"
+                  className={classes.textfield}
+                  onChange={handleChange}
+                />
               </Grid>
               {/* .................................WEEKLY WEIGHT............................................... */}
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
                     <i>Weekly weight:</i>
                   </b>
                 </Typography>
-                <Grid container>
+                <List>
                   {weight &&
                     weight.map((item, key) => (
-                      <Grid item xs={12}>
-                        <TextField
-                          defaultValue={
-                            new Date(item.date).toLocaleDateString() +
-                            ":           " +
-                            item.weight
-                          }
-                          id="weight"
-                          className={classes.weight}
-                          onChange={handleChange}
+                      <ListItem divider className={classes.listItems} key={key}>
+                        <ListItemAvatar>
+                          <CheckCircleOutlineIcon />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.weight + " " + "kilograms"}
+                          secondary={new Date(item.date).toLocaleDateString()}
                         />
-                      </Grid>
+                      </ListItem>
                     ))}
-                </Grid>
+                </List>
               </Grid>
-              {/* ..............................PRODUCTS.............................................................. */}
+              {/* ..............................PRODUCTS........................................ */}
               <Grid item xs={12} md={6}>
-                <Typography variant="body1">
+                <Typography variant="body1" color="secondary">
                   <b>
-                    <i>Products:</i>
+                    <i>
+                      {department === "dairies"
+                        ? "Milk in litres:"
+                        : department === "layers"
+                        ? "Eggs per week:"
+                        : null}
+                    </i>
                   </b>
                 </Typography>
-                <Grid container>
-                  {products &&
+                <List>
+                  {products.length > 1 &&
+                    (department === "dairies" || department === "layers") &&
                     products.map((item, key) => (
-                      <Grid item xs={12}>
-                        <TextField
-                          defaultValue={
-                            new Date(item.date).toLocaleDateString() +":       " +
-                             ( item.litres || item.number)
-                          }
-                          id="products"
-                          className={classes.textfield}
-                          onChange={handleChange}
+                      <ListItem
+                        divider
+                        key={key}
+                        className={classes.listItems}
+                      >
+                        <ListItemAvatar>
+                          <CheckCircleOutlineIcon />
+                        </ListItemAvatar>
+                        <ListItemText
+                          primary={item.litres || item.number}
+                          secondary={new Date(item.date).toLocaleDateString()}
                         />
-                      </Grid>
+                      </ListItem>
                     ))}
-                </Grid>
+                </List>
               </Grid>
               {/* .............................................................................. */}
             </Grid>
@@ -213,8 +197,10 @@ const ViewDialog = ({ open, setOpen, animal, department }) => {
             variant="contained"
             color="primary"
             onClick={() => {
+              updateAnimal(department, tagNo);
               setOpen(false);
               clearAttributes();
+              getAnimals(department);
             }}
           >
             Submit

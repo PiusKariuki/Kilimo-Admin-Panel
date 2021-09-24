@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Grid,
-  Button,
-  Box,
-  Select,
-  FormControl,
-  MenuItem,
-  InputLabel,
-} from "@material-ui/core";
+import { Grid, Button, Box } from "@material-ui/core";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -16,6 +8,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import useSpinner from "App/Common/Spinner/Spinner";
 import useFetch from "../hooks/useFetch";
 import ViewDialog from "../components/ViewDialog";
+import SelectDepartment from "../components/SelectDepartment";
+import AddDialog from "../components/AddDialog";
+import useAdd from "../hooks/useAdd";
 
 const useStyles = makeStyles({
   formControl: {
@@ -35,25 +30,15 @@ const useStyles = makeStyles({
   },
   container: {
     margin: "0",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   btns: {
     margin: "0.5rem",
-  },
-  refresh: {
-    justifySelf: "end",
-    color: "white",
-    backgroundColor: "green",
-    "&:hover": {
-      color: "white",
-      backgroundColor: "red",
-    },
   },
 });
 
 const Animals = () => {
   const classes = useStyles();
-
   const [
     getAnimals,
     load,
@@ -64,9 +49,27 @@ const Animals = () => {
     openEdit,
     setOpenEdit,
   ] = useFetch();
+
+  const [
+    addAnimal,
+    name,
+    setName,
+    breed,
+    setBreed,
+    age,
+    setAge,
+    history,
+    setHistory,
+    errors,
+    handleChange,
+    setOpen,
+    open,
+  ] = useAdd();
+
   const [renderSpinner] = useSpinner();
+
   React.useEffect(() => {
-    getAnimals();
+    getAnimals(department);
   }, [setDepartment]);
 
   return (
@@ -76,34 +79,33 @@ const Animals = () => {
         setOpen={setOpenEdit}
         animal={animal}
         department={department}
+        getAnimals={getAnimals}
       />
-
+      <AddDialog
+        name={name}
+        breed={breed}
+        age={age}
+        history={history}
+        errors={errors}
+        handleChange={handleChange}
+        open={open}
+        setOpen={setOpen}
+        addAnimal={addAnimal}
+        department={department}
+        getAnimals={getAnimals}
+      />
+      {/* ................select department and refresh.............................. */}
+      <Grid item xs={12}>
+        <SelectDepartment
+          department={department}
+          setDepartment={setDepartment}
+          getAnimals={getAnimals}
+          setOpen={setOpen}
+        />
+      </Grid>
+      {/* ............................datatable..................................... */}
       <Grid item xs={12}>
         <Box className={classes.box}>
-          <FormControl className={classes.formControl}>
-            <InputLabel
-              id="department"
-              className={classes.formLabel}
-              value={department}
-            >
-              Department
-            </InputLabel>
-            <Select
-              labelId="department"
-              id="department"
-              value={department}
-              onChange={(e) => {
-                getAnimals(e.target.value);
-                setDepartment(e.target.value);
-              }}
-            >
-              <MenuItem value="pigs">Pigs</MenuItem>
-              <MenuItem value="dairies">Dairies</MenuItem>
-              <MenuItem value="beefs">Beef</MenuItem>
-              <MenuItem value="layers">Layers</MenuItem>
-            </Select>
-          </FormControl>
-
           {renderSpinner(load)}
           <MDBDataTableV5
             hover
