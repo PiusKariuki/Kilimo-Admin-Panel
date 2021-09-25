@@ -50,17 +50,18 @@ const useAdd = () => {
       .then(
         (res) => {
           setOpenAdd(false);
-          
           swal("Successful", "item added to inventory", "success");
           setName("");
           setAmount("");
           setVendor("");
           setUnit_weight("");
           setDepartment("");
-          setErrors("");  
+          setErrors("");
         },
         (err) => {
-          setErrors(err.response.data);
+          err.response.status === 400
+            ? swal("Duplicate error", err.response.data, "error")
+            : setErrors(err.response.data);
         }
       )
       .catch((err) => {

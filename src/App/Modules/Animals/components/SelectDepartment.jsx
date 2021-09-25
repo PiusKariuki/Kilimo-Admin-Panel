@@ -46,6 +46,7 @@ const SelectDepartment = ({
   department,
   setDepartment,
   setOpen,
+  
 }) => {
   React.useEffect(() => {
     getAnimals(department);

@@ -11,6 +11,7 @@ import ViewDialog from "../components/ViewDialog";
 import SelectDepartment from "../components/SelectDepartment";
 import AddDialog from "../components/AddDialog";
 import useAdd from "../hooks/useAdd";
+import DeleteDialog from "../components/DeleteDialog";
 
 const useStyles = makeStyles({
   formControl: {
@@ -48,6 +49,10 @@ const Animals = () => {
     animal,
     openEdit,
     setOpenEdit,
+    openDelete,
+    setOpenDelete,
+    deleteAnimal,
+    deleteObj,
   ] = useFetch();
 
   const [
@@ -64,13 +69,14 @@ const Animals = () => {
     handleChange,
     setOpen,
     open,
+    clearAttributes,
   ] = useAdd();
 
   const [renderSpinner] = useSpinner();
 
   React.useEffect(() => {
     getAnimals(department);
-  }, [setDepartment]);
+  }, [setDepartment,openDelete]);
 
   return (
     <Grid container>
@@ -93,7 +99,10 @@ const Animals = () => {
         addAnimal={addAnimal}
         department={department}
         getAnimals={getAnimals}
+        clearAttributes={clearAttributes}
       />
+      <DeleteDialog open={openDelete} setOpen={setOpenDelete} handleDelete={deleteAnimal} 
+      deleteObj={deleteObj} />
       {/* ................select department and refresh.............................. */}
       <Grid item xs={12}>
         <SelectDepartment

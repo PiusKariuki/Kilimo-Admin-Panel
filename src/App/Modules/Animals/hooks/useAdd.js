@@ -23,17 +23,16 @@ const useAdd = () => {
         (res) => {
           swal("successful!", `${name} has been added`, "success");
           setOpen(false);
+          clearAttributes();
         },
         (err) => {
-          console.log(err.response);
-          swal("error", err.message, "error");
-          setErrors(err.response.data);
+          err.response.status === 400
+            ? swal("error", err.response.data, "error")
+            : setErrors(err.response.data);
         }
       )
       .catch((err) => {
-        console.log(err);
-        swal("error", err.message, "error");
-        setErrors(err.response.message);
+        setErrors(err?.response?.data);
       });
   };
 
@@ -60,6 +59,14 @@ const useAdd = () => {
     }
   };
 
+  const clearAttributes = () => {
+    setName("");
+    setAge("");
+    setBreed("");
+    setHistory("");
+    setErrors("");
+  };
+
   return [
     addAnimal,
     name,
@@ -74,6 +81,7 @@ const useAdd = () => {
     handleChange,
     setOpen,
     open,
+    clearAttributes,
   ];
 };
 

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useFetch from "../hooks/useFetch";
@@ -16,7 +16,13 @@ const useStyles = makeStyles({
   },
 });
 
-export const dataWithActions = (animals, department, getDetails) => {
+export const dataWithActions = (
+  animals,
+  department,
+  getDetails,
+  setOpenDelete,
+  setDeleteObj
+) => {
   const classes = useStyles();
 
   return animals.map((obj) =>
@@ -45,7 +51,7 @@ export const dataWithActions = (animals, department, getDetails) => {
             variant="contained"
             className={classes.btns}
             onClick={(e) => {
-              setTarget(e.currentTarget);
+              setDeleteObj(e.currentTarget);
               setOpenDelete(true);
             }}
           >

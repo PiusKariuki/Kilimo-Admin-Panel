@@ -38,7 +38,8 @@ const AddDialog = ({
   addAnimal,
   department,
   getAnimals,
-  setOpen
+  setOpen,
+  clearAttributes
 }) => {
   const classes = useStyles();
   return (
@@ -151,6 +152,7 @@ const AddDialog = ({
             color="secondary"
             onClick={() => {
               setOpen(false);
+              clearAttributes();
             }}
           >
             Close
