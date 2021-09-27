@@ -20,12 +20,12 @@ const useStyles = makeStyles({
     fontWeight: "bold",
   },
   item: {
-    backgroundColor: "white",
     margintop: "0",
     padding: "0.5rem",
     marginLeft: "0",
   },
   container: {
+    backgroundColor: "white",
     margin: "0",
     justifyContent: "space-around",
   },
@@ -55,7 +55,7 @@ const SelectDepartment = ({
   return (
     <Grid container className={classes.container}>
       {/* ...............................dept select................................ */}
-      <Grid item xs={6} className={classes.item}>
+      <Grid item className={classes.item}>
         <FormControl className={classes.formControl}>
           <InputLabel
             id="department"
@@ -81,7 +81,7 @@ const SelectDepartment = ({
         </FormControl>
       </Grid>
       {/* ......................................add btn.............................. */}
-      <Grid item xs={3} className={classes.item}>
+      <Grid item  className={classes.item}>
         {department !==""?
         <Button
           onClick={() => setOpen(true)}
@@ -92,7 +92,7 @@ const SelectDepartment = ({
         </Button>: null}
       </Grid>
       {/* ......................................refresh btn.............................. */}
-      <Grid item xs={3} className={classes.item}>
+      <Grid item  className={classes.item}>
         <Button
           onClick={() => getAnimals(department)}
           variant="contained"

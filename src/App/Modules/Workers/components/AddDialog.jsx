@@ -11,6 +11,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useAdd from "../hooks/useAdd";
 
 const useStyles = makeStyles({
   textfield: {
@@ -27,36 +28,36 @@ const useStyles = makeStyles({
 });
 
 const AddDialog = ({
-  name,
-  breed,
-  age,
-  history,
-  errors,
-  handleChange,
-  open,
-  addAnimal,
+  getAllWorkers,
+  openAdd,
+  setOpenAdd,
+  firstName,
+  lastName,
+  email,
   department,
-  getAnimals,
-  setOpen,
-  clearAttributes
+  title,
+  handleChange,
+  errors,
+  addWorker,
+  clearAttributes,
 }) => {
   const classes = useStyles();
   return (
-    <Dialog open={open}>
+    <Dialog open={openAdd}>
       <Card>
         <CardContent>
           <FormControl>
             <Grid container>
-              {/* .............................NAME.............................. */}
+              {/* .............................FIRST NAME.............................. */}
               <Grid item xs={6}>
                 <Typography variant="body1">
                   <b>
-                    <i>Name:</i>
+                    <i>First Name:</i>
                   </b>
                 </Typography>
                 <TextField
-                  value={name}
-                  id="name"
+                  value={firstName}
+                  id="firstName"
                   className={classes.textfield}
                   onChange={handleChange}
                 />
@@ -65,19 +66,19 @@ const AddDialog = ({
                   color="error"
                   className={classes.errors}
                 >
-                  {errors && errors.name && errors.name.message}
+                  {errors && errors.firstName && errors.firstName.message}
                 </Typography>
               </Grid>
-              {/* .............................BREED.............................. */}
+              {/* .............................LAST NAME.............................. */}
               <Grid item xs={6}>
                 <Typography variant="body1">
                   <b>
-                    <i>Breed:</i>
+                    <i>Last Name:</i>
                   </b>
                 </Typography>
                 <TextField
-                  value={breed}
-                  id="breed"
+                  value={lastName}
+                  id="lastName"
                   className={classes.textfield}
                   onChange={handleChange}
                 />
@@ -86,19 +87,19 @@ const AddDialog = ({
                   color="error"
                   className={classes.errors}
                 >
-                  {errors && errors.breed && errors.breed.message}
+                  {errors && errors.lastName && errors.lastName.message}
                 </Typography>
               </Grid>
-              {/* .............................AGE IN WEEKS.............................. */}
+              {/* .............................EMAIL.............................. */}
               <Grid item xs={6}>
                 <Typography variant="body1">
                   <b>
-                    <i>Age in weeks:</i>
+                    <i>Email:</i>
                   </b>
                 </Typography>
                 <TextField
-                  value={age}
-                  id="age"
+                  value={email}
+                  id="email"
                   className={classes.textfield}
                   onChange={handleChange}
                 />
@@ -107,19 +108,19 @@ const AddDialog = ({
                   color="error"
                   className={classes.errors}
                 >
-                  {errors && errors.age_in_weeks && errors.age_in_weeks.message}
+                  {errors && errors.email && errors.email.message}
                 </Typography>
               </Grid>
-              {/* .............................HISTORY.............................. */}
+              {/* .............................DEPARTMENT.............................. */}
               <Grid item xs={6}>
                 <Typography variant="body1">
                   <b>
-                    <i>History:</i>
+                    <i>Department:</i>
                   </b>
                 </Typography>
                 <TextField
-                  value={history}
-                  id="history"
+                  value={department}
+                  id="department"
                   className={classes.textfield}
                   onChange={handleChange}
                 />
@@ -128,7 +129,28 @@ const AddDialog = ({
                   color="error"
                   className={classes.errors}
                 >
-                  {errors && errors.history && errors.history.message}
+                  {errors && errors.department && errors.department.message}
+                </Typography>
+              </Grid>
+              {/* .............................TITLE.............................. */}
+              <Grid item xs={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Title:</i>
+                  </b>
+                </Typography>
+                <TextField
+                  value={title}
+                  id="title"
+                  className={classes.textfield}
+                  onChange={handleChange}
+                />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.title && errors.title.message}
                 </Typography>
               </Grid>
               {/* ................................................................... */}
@@ -140,8 +162,8 @@ const AddDialog = ({
             variant="contained"
             color="primary"
             onClick={() => {
-              addAnimal(department);
-              getAnimals(department);
+              addWorker();
+              getAllWorkers();
             }}
           >
             Submit
@@ -150,7 +172,7 @@ const AddDialog = ({
             variant="contained"
             color="secondary"
             onClick={() => {
-              setOpen(false);
+              setOpenAdd(false);
               clearAttributes();
             }}
           >

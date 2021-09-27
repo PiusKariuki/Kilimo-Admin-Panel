@@ -6,6 +6,8 @@ import ListIcon from "@material-ui/icons/List";
 import Logs from "../../Logs/views/Logs";
 import PetsIcon from "@material-ui/icons/Pets";
 import Animals from "../../Animals/views/Animals"
+import BuildIcon from "@material-ui/icons/Build";
+import Workers from "App/Modules/Workers/views/Workers";
 
 
 const kilimoRoutes = [
@@ -36,6 +38,13 @@ const kilimoRoutes = [
 		name: "Animals",
 		icon: PetsIcon,
 		component: Animals,
+		layout: "/kilimo",
+	},
+	{
+		path: "/workers",
+		name: "Workers",
+		icon: BuildIcon,
+		component: Workers,
 		layout: "/kilimo",
 	},
 ];

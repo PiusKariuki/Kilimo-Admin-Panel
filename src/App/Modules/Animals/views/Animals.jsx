@@ -14,27 +14,10 @@ import useAdd from "../hooks/useAdd";
 import DeleteDialog from "../components/DeleteDialog";
 
 const useStyles = makeStyles({
-  formControl: {
-    width: "9rem",
-  },
-  formLabel: {
-    color: "red",
-    fontWeight: "bold",
-  },
-  buttons: {
-    justifyContent: "space-between",
-  },
   box: {
     backgroundColor: "white",
     margintop: "0",
     padding: "0.5rem",
-  },
-  container: {
-    margin: "0",
-    justifyContent: "space-between",
-  },
-  btns: {
-    margin: "0.5rem",
   },
 });
 

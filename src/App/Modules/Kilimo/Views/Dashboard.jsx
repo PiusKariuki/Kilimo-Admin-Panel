@@ -99,7 +99,7 @@ const Dashboard = () => {
 
       <Grid item xs={12} sm={4} md={3} lg={3} className={classes.items}>
         <Box>
-          <Card>
+          <Card onClick={() => history.push("/kilimo/workers")}>
             <CardContent>
               <Typography variant="subtitle1">
                 <SupervisorAccountIcon />
