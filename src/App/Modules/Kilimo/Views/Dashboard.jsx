@@ -118,18 +118,18 @@ const Dashboard = () => {
 
       <Grid item xs={12} sm={4} md={3} lg={3} className={classes.items}>
         <Box>
-          <Card>
+          <Card onClick={() => history.push("/kilimo/Instructions")}>
             <CardContent>
               <Typography variant="subtitle1">
                 <PlaylistAddCheckSharpIcon />
                 &emsp;
                 <b>
-                  <i>Tasks</i>
+                  <i>Instructions</i>
                 </b>
                 <hr />
               </Typography>
               <Typography variant="body1">
-                Assign daily tasks to workers in their assigned departments
+                Assign daily tasks to workers in their respective departments
               </Typography>
             </CardContent>
             <CardActions></CardActions>

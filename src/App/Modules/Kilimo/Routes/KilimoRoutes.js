@@ -8,6 +8,8 @@ import PetsIcon from "@material-ui/icons/Pets";
 import Animals from "../../Animals/views/Animals"
 import BuildIcon from "@material-ui/icons/Build";
 import Workers from "App/Modules/Workers/views/Workers";
+import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
+import Instructions from "App/Modules/Instructions/views/Instructions";
 
 
 const kilimoRoutes = [
@@ -45,6 +47,13 @@ const kilimoRoutes = [
 		name: "Workers",
 		icon: BuildIcon,
 		component: Workers,
+		layout: "/kilimo",
+	},
+	{
+		path: "/instructions",
+		name: "Instructions",
+		icon: PlaylistAddCheckIcon,
+		component: Instructions,
 		layout: "/kilimo",
 	},
 ];

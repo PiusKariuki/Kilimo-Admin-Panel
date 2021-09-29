@@ -95,27 +95,33 @@ const Inventory = ({ email }) => {
         errors={errors}
         setErrors={setErrors}
       />
-
-      <Box className={classes.box}>
-        <Button
-          size="small"
-          className={classes.refresh}
-          variant="contained"
-          onClick={() => fetchInventory()}
-        >
-          Refresh
-        </Button>
-      </Box>
-      <Box className={classes.box}>
-        <Button
-          size="small"
-          className={classes.refresh}
-          variant="contained"
-          onClick={() => setOpenAdd(true)}
-        >
-          Add Item
-        </Button>
-      </Box>
+      {/* ..........................add btn........................ */}
+      <Grid item xs={6}>
+        {" "}
+        <Box className={classes.box}>
+          <Button
+            size="small"
+            className={classes.refresh}
+            variant="contained"
+            onClick={() => setOpenAdd(true)}
+          >
+            Add Item
+          </Button>
+        </Box>
+      </Grid>
+      {/* ..........................................refresh btn..................... */}
+      <Grid item xs={6}>
+        <Box className={classes.box}>
+          <Button
+            size="small"
+            className={classes.refresh}
+            variant="contained"
+            onClick={() => fetchInventory()}
+          >
+            Refresh
+          </Button>
+        </Box>
+      </Grid>
 
       <Grid item xs={12}>
         <Box className={classes.box}>

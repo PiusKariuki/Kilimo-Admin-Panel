@@ -2,7 +2,6 @@ import React from "react";
 import {
   Grid,
   Button,
-  Box,
   Select,
   FormControl,
   MenuItem,
@@ -28,11 +27,10 @@ const useStyles = makeStyles({
     margin: "0",
     justifyContent: "space-around",
   },
-  refresh: {
+  btn: {
     justifySelf: "end",
     color: "white",
     backgroundColor: "green",
-    // marginTop: "0.5rem",
     "&:hover": {
       color: "white",
       backgroundColor: "red",
@@ -40,15 +38,12 @@ const useStyles = makeStyles({
   },
 });
 
-const SelectDepartment = ({
-  getAnimals,
+const TopBtns = ({
   department,
   setDepartment,
-  setOpen,
+  getInstructionsByDepartment,
+  setOpenAdd,
 }) => {
-  React.useEffect(() => {
-    getAnimals(department);
-  }, [setDepartment]);
   const classes = useStyles();
   return (
     <Grid container className={classes.container}>
@@ -67,34 +62,36 @@ const SelectDepartment = ({
             id="department"
             value={department}
             onChange={(e) => {
-              getAnimals(e.target.value);
               setDepartment(e.target.value);
+              getInstructionsByDepartment(e.target.value);
             }}
           >
             <MenuItem value="pigs">Pigs</MenuItem>
             <MenuItem value="dairies">Dairies</MenuItem>
             <MenuItem value="beefs">Beef</MenuItem>
             <MenuItem value="layers">Layers</MenuItem>
+            <MenuItem value="all">Notifications</MenuItem>
           </Select>
         </FormControl>
       </Grid>
       {/* ......................................add btn.............................. */}
-      <Grid item  className={classes.item}>
-        {department !==""?
-        <Button
-          onClick={() => setOpen(true)}
-          variant="contained"
-          className={classes.refresh}
-        >
-          Add
-        </Button>: null}
+      <Grid item className={classes.item}>
+        {department !== "" ? (
+          <Button
+            onClick={() => setOpenAdd(true)}
+            variant="contained"
+            className={classes.btn}
+          >
+            Add
+          </Button>
+        ) : null}
       </Grid>
       {/* ......................................refresh btn.............................. */}
-      <Grid item  className={classes.item}>
+      <Grid item className={classes.item}>
         <Button
-          onClick={() => getAnimals(department)}
+          onClick={() => getInstructionsByDepartment(department)}
           variant="contained"
-          className={classes.refresh}
+          className={classes.btn}
         >
           Refresh
         </Button>
@@ -103,4 +100,4 @@ const SelectDepartment = ({
   );
 };
 
-export default SelectDepartment;
+export default TopBtns;

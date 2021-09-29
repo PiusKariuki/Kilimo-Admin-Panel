@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Grid, Button, Box } from "@material-ui/core";
+import React from "react";
+import { Grid, Box } from "@material-ui/core";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
@@ -59,7 +59,7 @@ const Animals = () => {
 
   React.useEffect(() => {
     getAnimals(department);
-  }, [setDepartment,openDelete]);
+  }, [ openDelete]);
 
   return (
     <Grid container>
@@ -84,8 +84,12 @@ const Animals = () => {
         getAnimals={getAnimals}
         clearAttributes={clearAttributes}
       />
-      <DeleteDialog open={openDelete} setOpen={setOpenDelete} handleDelete={deleteAnimal} 
-      deleteObj={deleteObj} />
+      <DeleteDialog
+        open={openDelete}
+        setOpen={setOpenDelete}
+        handleDelete={deleteAnimal}
+        deleteObj={deleteObj}
+      />
       {/* ................select department and refresh.............................. */}
       <Grid item xs={12}>
         <SelectDepartment
