@@ -16,7 +16,7 @@ import {
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
-import useView from "../hooks/useEdit";
+import useEdit from "../hooks/useEdit";
 
 const useStyles = makeStyles({
   textfield: {
@@ -47,9 +47,9 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
     setTitle,
     clearAttributes,
     updateWorker,
-    setErrors,
     errors,
-  ] = useView();
+    status
+  ] = useEdit();
 
   React.useEffect(() => {
     setFirstName(worker.firstName);
@@ -58,6 +58,10 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
     setDepartment(worker.department);
     setTitle(worker.title);
   }, [openEdit]);
+
+  React.useEffect(()=>{
+    status===200? setOpenEdit(false): null;
+  }, [status]);
 
   const classes = useStyles();
   return (
@@ -83,6 +87,13 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.firstName && errors.firstName.message}
+                </Typography>
               </Grid>
               {/* ......................LAST NAME..................................... */}
               <Grid item xs={12} md={6}>
@@ -97,6 +108,13 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.lastName && errors.lastName.message}
+                </Typography>
               </Grid>
               {/* ..................................EMAIL................................................ */}
               <Grid item xs={12} md={6}>
@@ -111,6 +129,13 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.email && errors.email.message}
+                </Typography>
               </Grid>
               {/* ...................................TITLE............................................. */}
               <Grid item xs={12} md={6}>
@@ -125,6 +150,13 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.title && errors.title.message}
+                </Typography>
               </Grid>
               {/* ...................................DEPARTMENT............................................. */}
               <Grid item xs={12} md={6}>
@@ -139,6 +171,13 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.department && errors.department.message}
+                </Typography>
               </Grid>
               {/* ................................................................................ */}
             </Grid>
@@ -150,8 +189,6 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
             color="primary"
             onClick={() => {
               updateWorker(worker._id);
-              setOpenEdit(false);
-              clearAttributes();
               getAllWorkers();
             }}
           >

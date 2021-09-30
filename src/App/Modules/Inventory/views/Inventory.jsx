@@ -64,6 +64,7 @@ const Inventory = ({ email }) => {
     setOpenEdit,
     item,
     editInventoryItem,
+    errorMsgs,
   ] = useInventory();
 
   const [addItem, handleChange, errors, setErrors, openAdd, setOpenAdd] =
@@ -85,6 +86,7 @@ const Inventory = ({ email }) => {
         editInventoryItem={editInventoryItem}
         email={email}
         fetchInventory={fetchInventory}
+        errors={errorMsgs}
       />
       <AddModal
         setOpen={setOpenAdd}

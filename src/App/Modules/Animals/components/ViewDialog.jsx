@@ -51,6 +51,8 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
     setProducts,
     clearAttributes,
     updateAnimal,
+    errors,
+    status,
   ] = useView();
 
   React.useEffect(() => {
@@ -63,6 +65,10 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
     if (department === "layers") setProducts(animal.eggs_weekly);
     else if (department === "dairies") setProducts(animal.milk_daily);
   }, [open]);
+
+  React.useEffect(() => {
+    status === 200 ? setOpen(false) : null;
+  }, [status]);
 
   const classes = useStyles();
   return (
@@ -88,6 +94,13 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.name && errors.name.message}
+                </Typography>
               </Grid>
               {/* ......................BREED..................................... */}
               <Grid item xs={12} md={6}>
@@ -102,6 +115,13 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.breed && errors.breed.message}
+                </Typography>
               </Grid>
               {/* ..................................AGE................................................ */}
               <Grid item xs={12} md={6}>
@@ -116,6 +136,13 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.age_in_weeks && errors.age_in_weeks.message}
+                </Typography>
               </Grid>
               {/* ...................................HISTORY............................................. */}
               <Grid item xs={12} md={6}>
@@ -132,6 +159,13 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.history && errors.history.message}
+                </Typography>
               </Grid>
               {/* .................................WEEKLY WEIGHT............................................... */}
               <Grid item xs={12} md={6}>
@@ -172,11 +206,7 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
                   {products.length > 1 &&
                     (department === "dairies" || department === "layers") &&
                     products.map((item, key) => (
-                      <ListItem
-                        divider
-                        key={key}
-                        className={classes.listItems}
-                      >
+                      <ListItem divider key={key} className={classes.listItems}>
                         <ListItemAvatar>
                           <CheckCircleOutlineIcon />
                         </ListItemAvatar>
@@ -198,8 +228,6 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
             color="primary"
             onClick={() => {
               updateAnimal(department, tagNo);
-              setOpen(false);
-              clearAttributes();
               getAnimals(department);
             }}
           >

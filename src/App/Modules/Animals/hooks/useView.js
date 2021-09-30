@@ -10,6 +10,8 @@ const useView = () => {
   const [tagNo, setTagNo] = useState("");
   const [weight, setWeight] = useState("");
   const [products, setProducts] = useState("");
+  const [errors, setErrors] = useState("");
+  const [status,setStatus] = useState("");
 
   const handleChange = (e) => {
     switch (e.target.id) {
@@ -46,6 +48,8 @@ const useView = () => {
     setTagNo("");
     setWeight("");
     setProducts("");
+    setErrors("");
+    setStatus("");
   };
 
   /*..................................update animal.................................*/
@@ -60,13 +64,15 @@ const useView = () => {
       .then(
         (res) => {
           swal("successful!", `${name} has been updated`, "success");
+          setStatus(res.status);
+          clearAttributes();
         },
         (err) => {
-          swal("error", err.message, "error");
+          setErrors(err.response.data);
         }
       )
       .catch((err) => {
-        swal("error", err.message, "error");
+        setErrors(err.response.data);
       });
   };
 
@@ -88,6 +94,8 @@ const useView = () => {
     setProducts,
     clearAttributes,
     updateAnimal,
+    errors,
+    status
   ];
 };
 

@@ -29,6 +29,7 @@ const EditModal = ({
   editInventoryItem,
   email,
   fetchInventory,
+  errors,
 }) => {
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -81,6 +82,7 @@ const EditModal = ({
           <hr />
           <FormControl>
             <Grid container>
+              {/* .............................NAME................................... */}
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" color="secondary">
                   <b>
@@ -93,7 +95,15 @@ const EditModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.name && errors.name.message}
+                </Typography>
               </Grid>
+              {/* ......................AMOUNT.......................................... */}
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" color="secondary">
                   <b>
@@ -106,7 +116,15 @@ const EditModal = ({
                   className={classes.textfield}
                   onChange={(e) => handleChange(e)}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.amount && errors.amount.message}
+                </Typography>
               </Grid>
+              {/* ...............................................VENDOR................. */}
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" color="secondary">
                   <b>
@@ -119,8 +137,15 @@ const EditModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.vendor && errors.vendor.message}
+                </Typography>
               </Grid>
-
+              {/*..............................................NET WEIGHT.............. */}
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" color="secondary">
                   <b>
@@ -133,8 +158,15 @@ const EditModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.unit_weight && errors.unit_weight.message}
+                </Typography>
               </Grid>
-
+              {/* ...............................DEPARTMENT...................................... */}
               <Grid item xs={12} md={6}>
                 <Typography variant="body1" color="secondary">
                   <b>
@@ -147,11 +179,18 @@ const EditModal = ({
                   className={classes.textfield}
                   onChange={handleChange}
                 />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors && errors.department && errors.department.message}
+                </Typography>
               </Grid>
             </Grid>
           </FormControl>
         </CardContent>
-    {/* ...........................Actions............................................................ */}
+        {/* ...........................Actions............................................................ */}
         <CardActions className={classes.actions}>
           <Button
             variant="contained"

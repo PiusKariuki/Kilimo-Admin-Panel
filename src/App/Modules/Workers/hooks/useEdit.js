@@ -9,6 +9,8 @@ const useEdit = () => {
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
   const [errors, setErrors] = useState("");
+  const [status, setStatus] = useState("");
+
   /*..............................form change handler.........................*/
   const handleChange = (e) => {
     switch (e.target.id) {
@@ -45,6 +47,7 @@ const useEdit = () => {
     setDepartment("");
     setTitle("");
     setErrors("");
+    setStatus("");
   };
 
   /*..................................update animal.................................*/
@@ -60,13 +63,15 @@ const useEdit = () => {
       .then(
         (res) => {
           swal("successful!", `${firstName} ${lastName} has been updated`, "success");
+          setStatus(res.status);
+          clearAttributes();
         },
         (err) => {
-          swal("error", err.message, "error");
+           setErrors(err.response.data);
         }
       )
       .catch((err) => {
-        swal("error", err.message, "error");
+        setErrors(err.response.data);
       });
   };
 
@@ -86,8 +91,8 @@ const useEdit = () => {
     setTitle,
     clearAttributes,
     updateWorker,
-    setErrors,
-    errors
+    errors,
+    status
   ];
 };
 

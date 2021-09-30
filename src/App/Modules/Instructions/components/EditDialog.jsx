@@ -52,9 +52,6 @@ const EditDialog = ({
     setTask(instruction.instruction);
   }, [openEdit]);
 
-  // React.useEffect(()=> {
-  //   setOpenEdit(false);
-  // }, [])
 
   const classes = useStyles();
   return (
