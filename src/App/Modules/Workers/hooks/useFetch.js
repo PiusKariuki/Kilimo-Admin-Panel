@@ -23,12 +23,12 @@ const useFetch = () => {
           setAllWorkers(res.data);
         },
         (err) => {
-          swal("Error", err.response.message, "error");
+          swal("Error", err?.response?.message, "error");
           setLoad(false);
         }
       )
       .catch((err) => {
-        swal("Error", err.response.message, "error");
+        swal("Error", err?.response?.message, "error");
         setLoad(false);
       });
   };

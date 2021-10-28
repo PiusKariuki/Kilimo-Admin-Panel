@@ -24,6 +24,7 @@ const useStyles = makeStyles({
   listItems: {
     margin: "0",
   },
+
 });
 
 const AddDialog = ({
@@ -46,7 +47,7 @@ const AddDialog = ({
       <Card>
         <CardContent>
           <FormControl>
-            <Grid container>
+            <Grid container >
               {/* .............................NAME.............................. */}
               <Grid item xs={6}>
                 <Typography variant="body1">

@@ -108,7 +108,6 @@ const Animals = () => {
             responsive
             striped
             bordered
-            hover
             data={data}
             entries={7}
             btn

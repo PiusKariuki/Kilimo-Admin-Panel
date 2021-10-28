@@ -7,7 +7,7 @@ const request = axios.create({
 });
 
 const persistentState = localStorage.getItem("state");
-const tkn = JSON.parse(persistentState).User.tkn;
+const tkn = JSON.parse(persistentState)?.User?.tkn;
 
 request.interceptors.request.use(request => {
   request.headers.Authorization = `Bearer ${tkn}`
