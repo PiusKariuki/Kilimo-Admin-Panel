@@ -11,7 +11,6 @@ const useInstructions = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [department, setDepartment] = useState("");
 
-
   /*................get instructions by department....................*/
   const getInstructionsByDepartment = (department) => {
     request
@@ -21,7 +20,6 @@ const useInstructions = () => {
       })
       .catch();
   };
-
 
   /*.................get instruction by id.......................*/
   const getInstructionsById = (id) => {
@@ -48,43 +46,24 @@ const useInstructions = () => {
     request
       .delete(`/tasks/${id}`)
       .then((res) => {
-        swal("success", "", "success")
+        swal("success", "", "success");
         setOpenDelete(false);
       })
-      .then(() =>{
-         setOpenDelete(false)
-         getInstructionsByDepartment(department)
+      .then(() => {
+        setOpenDelete(false);
+        getInstructionsByDepartment(department);
       })
       .catch((err) => swal("error", "", "error"));
   };
 
-/*.................................................editing functions.......................*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  /*.................................................editing functions.......................*/
 
   /*.......................data to populate datatable...................*/
   const data = {
     columns,
     rows: dataWithActions(instructions, handleEdit, getInstructionsById),
   };
-  return [
+  return {
     instruction,
     instructions,
     data,
@@ -95,8 +74,8 @@ const useInstructions = () => {
     setOpenDelete,
     department,
     setDepartment,
-    handleDelete
-  ];
+    handleDelete,
+  };
 };
 
 export default useInstructions;

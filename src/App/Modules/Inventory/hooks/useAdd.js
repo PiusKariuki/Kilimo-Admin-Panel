@@ -69,6 +69,6 @@ const useAdd = () => {
       });
   };
 
-  return [addItem, handleChange, errors, setErrors, openAdd, setOpenAdd];
+  return {addItem, handleChange, errors, setErrors, openAdd, setOpenAdd};
 };
 export default useAdd;

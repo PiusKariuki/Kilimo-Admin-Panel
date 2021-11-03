@@ -38,28 +38,24 @@ const Animals = () => {
     deleteObj,
   ] = useFetch();
 
-  const [
+  const {
     addAnimal,
     name,
-    setName,
     breed,
-    setBreed,
     age,
-    setAge,
     history,
-    setHistory,
     errors,
     handleChange,
     setOpen,
     open,
     clearAttributes,
-  ] = useAdd();
+  } = useAdd();
 
   const [renderSpinner] = useSpinner();
 
   React.useEffect(() => {
     getAnimals(department);
-  }, [ openDelete]);
+  }, [openDelete]);
 
   return (
     <Grid container>

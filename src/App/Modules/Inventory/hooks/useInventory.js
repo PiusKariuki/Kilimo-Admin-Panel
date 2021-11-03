@@ -199,7 +199,7 @@ const useInventory = () => {
       .catch((err) => {});
   };
 
-  return [
+  return{ 
     load,
     fetchInventory,
     data,
@@ -212,7 +212,7 @@ const useInventory = () => {
     item,
     editInventoryItem,
     errorMsgs,
-  ];
+  };
 };
 
 export default useInventory;

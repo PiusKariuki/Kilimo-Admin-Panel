@@ -67,7 +67,7 @@ function Landing({ login, loading, errors }) {
 	const classes = useStyles();
 
 	// custom hook
-	const [changeHandler, mail, password,] = useLogin();
+	const [changeHandler, mail, password] = useLogin();
 
 	// spinner hook
 	const [renderSpinner] = useSpinner();

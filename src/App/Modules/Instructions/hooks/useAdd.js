@@ -4,10 +4,10 @@ import { useState } from "react";
 
 const useAdd = () => {
   const [task, setTask] = useState("");
-  const [dept, setDept] = useState("");
+
   const [errors, setErrors] = useState("");
   const [openAdd, setOpenAdd] = useState(false);
-  
+
   /*........................................*/
   const addInstruction = (department) => {
     request
@@ -20,7 +20,8 @@ const useAdd = () => {
         },
         (err) => {
           setErrors(err.response.data);
-        })
+        }
+      )
       .catch((err) => {
         setErrors(err.response.data);
       });
@@ -41,19 +42,18 @@ const useAdd = () => {
   /*.................................................................................*/
   const clearAttributes = () => {
     setTask("");
-    setDept("");
     setErrors("");
-  }
+  };
 
-  return [
+  return {
     task,
     errors,
     handleChange,
     addInstruction,
     openAdd,
     setOpenAdd,
-    clearAttributes
-  ];
+    clearAttributes,
+  };
 };
 
 export default useAdd;

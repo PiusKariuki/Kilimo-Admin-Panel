@@ -10,7 +10,7 @@ const useAdd = () => {
   const [errors, setErrors] = useState("");
   const [open, setOpen] = useState(false);
 
-  /*..................................update animal.................................*/
+  
   const addAnimal = (department) => {
     request
       .post(`/animals/${department}`, {
@@ -67,7 +67,7 @@ const useAdd = () => {
     setErrors("");
   };
 
-  return [
+  return {
     addAnimal,
     name,
     setName,
@@ -82,7 +82,7 @@ const useAdd = () => {
     setOpen,
     open,
     clearAttributes,
-  ];
+  };
 };
 
 export default useAdd;

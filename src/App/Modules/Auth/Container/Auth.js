@@ -1,7 +1,4 @@
 import React from "react";
-import authRoutes from "../Routes/Routes";
-// react-router-dom imports
-import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Kilimo from "App/Modules/Kilimo/Container/Kilimo";
 import Landing from "../Views/Landing";

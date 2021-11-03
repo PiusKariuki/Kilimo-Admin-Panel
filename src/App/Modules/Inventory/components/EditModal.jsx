@@ -10,7 +10,8 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React from "react";
+import useEdit from "../hooks/useEdit";
 
 const useStyles = makeStyles({
   textfield: {
@@ -31,11 +32,22 @@ const EditModal = ({
   fetchInventory,
   errors,
 }) => {
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState("");
-  const [vendor, setVendor] = useState("");
-  const [unit_weight, setUnit_weight] = useState("");
-  const [department, setDepartment] = useState("");
+  /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                    -hook calls
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+  const {
+    name,
+    setName,
+    amount,
+    setAmount,
+    vendor,
+    setVendor,
+    unit_weight,
+    setUnit_weight,
+    department,
+    setDepartment,
+    handleChange,
+  } = useEdit();
 
   React.useEffect(() => {
     setName(item.name);
@@ -46,33 +58,6 @@ const EditModal = ({
   }, [item]);
 
   const classes = useStyles();
-
-  const handleChange = (e) => {
-    switch (e.target.id) {
-      case "name": {
-        setName(e.target.value);
-        break;
-      }
-      case "amount": {
-        setAmount(e.target.value);
-        break;
-      }
-      case "vendor": {
-        setVendor(e.target.value);
-        break;
-      }
-      case "unit_weight": {
-        setUnit_weight(e.target.value);
-        break;
-      }
-      case "department": {
-        setDepartment(e.target.value);
-        break;
-      }
-      default:
-        return;
-    }
-  };
 
   return (
     <Dialog open={open}>

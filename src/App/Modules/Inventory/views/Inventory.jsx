@@ -52,7 +52,7 @@ const Inventory = ({ email }) => {
 
   const [renderSpinner] = useSpinner();
   const classes = useStyles();
-  const [
+  const{ 
     load,
     fetchInventory,
     data,
@@ -65,15 +65,15 @@ const Inventory = ({ email }) => {
     item,
     editInventoryItem,
     errorMsgs,
-  ] = useInventory();
+   }= useInventory();
 
-  const [addItem, handleChange, errors, setErrors, openAdd, setOpenAdd] =
+  const {addItem, handleChange, errors, setErrors, openAdd, setOpenAdd} =
     useAdd();
   return (
     <Grid container className={classes.container}>
       <DeletePrompt
         open={openDelete}
-        value={target.value}
+        objectId={target.value}
         name={target.id}
         setOpen={setOpenDelete}
         handleDelete={handleDelete}
@@ -138,7 +138,6 @@ const Inventory = ({ email }) => {
           />
         </Box>
       </Grid>
-      <Grid item xs={12}></Grid>
     </Grid>
   );
 };

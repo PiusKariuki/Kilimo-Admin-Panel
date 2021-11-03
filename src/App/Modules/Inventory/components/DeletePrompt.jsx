@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 		justifyContent: "space-between",
 	},
 });
-const DeletePrompt = ({ open, name, setOpen, handleDelete, value }) => {
+const DeletePrompt = ({ open, name, setOpen, handleDelete, objectId }) => {
 	const classes = useStyles();
 	return (
 		<Dialog open={open}>
@@ -35,8 +35,7 @@ const DeletePrompt = ({ open, name, setOpen, handleDelete, value }) => {
 					<Button
 						color="primary"
 						onClick={() => {
-							handleDelete(value);
-							// setOpen(false);
+							handleDelete(objectId);
 						}}
 					>
 						Confirm

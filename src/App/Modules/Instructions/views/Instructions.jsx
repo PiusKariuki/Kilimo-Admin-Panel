@@ -9,7 +9,6 @@ import AddDialog from "../components/AddDialog";
 import EditDialog from "../components/EditDialog";
 import DeleteDialog from "../components/DeleteDialog";
 
-
 const useStyles = makeStyles({
   container: {
     backgroundColor: "white",
@@ -18,9 +17,8 @@ const useStyles = makeStyles({
 
 const Instructions = () => {
   const classes = useStyles();
-  const [
+  const {
     instruction,
-    instructions,
     data,
     getInstructionsByDepartment,
     openEdit,
@@ -30,8 +28,8 @@ const Instructions = () => {
     department,
     setDepartment,
     handleDelete,
-  ] = useInstructions();
-  const [
+  } = useInstructions();
+  const {
     task,
     errors,
     handleChange,
@@ -39,7 +37,7 @@ const Instructions = () => {
     openAdd,
     setOpenAdd,
     clearAttributes,
-  ] = useAdd();
+  } = useAdd();
   return (
     <Grid container className={classes.container}>
       <TopBtns

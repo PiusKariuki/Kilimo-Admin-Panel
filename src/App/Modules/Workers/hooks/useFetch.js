@@ -6,7 +6,6 @@ import { dataWithActions } from "../shared/data";
 
 const useFetch = () => {
   const [allWorkers, setAllWorkers] = useState([]);
-  const [workerObj, setWorkerObj] = useState("");
   const [worker, setWorker] = useState("");
   const [errors, setErrors] = useState("");
   const [openDelete, setOpenDelete] = useState(false);

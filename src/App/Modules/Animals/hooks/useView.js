@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import request from "App/Common/Shared/Request";
 import swal from "sweetalert";
 
@@ -76,7 +76,7 @@ const useView = () => {
       });
   };
 
-  return [
+  return {
     handleChange,
     name,
     setName,
@@ -96,7 +96,7 @@ const useView = () => {
     updateAnimal,
     errors,
     status
-  ];
+  };
 };
 
 export default useView;

@@ -10,12 +10,7 @@ import {
   Button,
   FormControl,
   Grid,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
 } from "@material-ui/core";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import { Line } from "react-chartjs-2";
 import useView from "../hooks/useView";
@@ -38,7 +33,7 @@ const useStyles = makeStyles({
 });
 
 const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
-  const [
+  const {
     handleChange,
     name,
     setName,
@@ -58,7 +53,7 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
     updateAnimal,
     errors,
     status,
-  ] = useView();
+  } = useView();
 
   React.useEffect(() => {
     setName(animal.name);
@@ -76,7 +71,6 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
   }, [status]);
 
   /*......................................chart data for weight graph............................*/
-
   const weightDates =
     weight && weight.map((w) => new Date(w.date).toLocaleDateString());
   const weights = weight && weight.map((w) => w.weight);
