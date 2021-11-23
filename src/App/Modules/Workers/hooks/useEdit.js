@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import request from "App/Common/Shared/Request";
 import swal from "sweetalert";
 
@@ -8,6 +8,7 @@ const useEdit = () => {
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const [errors, setErrors] = useState("");
   const [status, setStatus] = useState("");
 
@@ -34,6 +35,10 @@ const useEdit = () => {
         setTitle(e.target.value);
         break;
       }
+      case "profilePicture": {
+        setProfilePicture(e.target.files[0]);
+        break;
+      }
       default:
         return;
     }
@@ -48,26 +53,33 @@ const useEdit = () => {
     setTitle("");
     setErrors("");
     setStatus("");
+    setProfilePicture("");
   };
 
   /*..................................update animal.................................*/
   const updateWorker = (workerID) => {
+    let formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("profilePicture", profilePicture);
+    formData.append("title", title);
+    formData.append("department", department);
+
     request
-      .put(`/workers/${workerID}`, {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        department: department,
-        title: title,
-      })
+      .put(`/workers/${workerID}`, formData)
       .then(
         (res) => {
-          swal("successful!", `${firstName} ${lastName} has been updated`, "success");
+          swal(
+            "successful!",
+            `${firstName} ${lastName} has been updated`,
+            "success"
+          );
           setStatus(res.status);
           clearAttributes();
         },
         (err) => {
-           setErrors(err.response.data);
+          setErrors(err.response.data);
         }
       )
       .catch((err) => {
@@ -75,9 +87,7 @@ const useEdit = () => {
       });
   };
 
-
-
-  return [
+  return {
     handleChange,
     firstName,
     setFirstName,
@@ -92,8 +102,10 @@ const useEdit = () => {
     clearAttributes,
     updateWorker,
     errors,
-    status
-  ];
+    status,
+    profilePicture,
+    setProfilePicture,
+  };
 };
 
 export default useEdit;

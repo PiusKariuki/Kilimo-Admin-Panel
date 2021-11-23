@@ -32,6 +32,8 @@ const AddDialog = ({
   setOpenAdd,
   firstName,
   lastName,
+  userName,
+  profilePicture,
   email,
   department,
   title,
@@ -150,6 +152,31 @@ const AddDialog = ({
                   className={classes.errors}
                 >
                   {errors && errors.title && errors.title.message}
+                </Typography>
+              </Grid>
+              {/* .............................PROFILE PICTURE.............................. */}
+              <Grid item xs={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Profile picture:</i>
+                  </b>
+                </Typography>
+                <input
+                  name="profilePicture"
+                  type="file"
+                  id="profilePicture"
+                  className={classes.textfield}
+                  onChange={handleChange}
+                  accept=".jpg, .png, .jpeg"
+                />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors &&
+                    errors.profilePicture &&
+                    errors.profilePicture.message}
                 </Typography>
               </Grid>
               {/* ................................................................... */}

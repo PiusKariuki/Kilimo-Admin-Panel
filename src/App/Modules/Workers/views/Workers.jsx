@@ -34,7 +34,9 @@ const Workers = () => {
     load,
     worker,
   ] = useFetch();
-  const [
+
+  const {
+    profilePicture,
     addWorker,
     firstName,
     lastName,
@@ -46,17 +48,19 @@ const Workers = () => {
     setOpenAdd,
     openAdd,
     clearAttributes,
-  ] = useAdd();
+  } = useAdd();
+
   React.useEffect(() => {
     getAllWorkers();
   }, [openAdd]);
+
   const [renderSpinner] = useSpinner();
   const classes = useStyles();
   return (
     <Grid container>
       {/* ................Top btns ...............................*/}
       <Grid item xs={12}>
-        <TopBtns getAllWorkers={getAllWorkers} setOpenAdd={setOpenAdd}/>
+        <TopBtns getAllWorkers={getAllWorkers} setOpenAdd={setOpenAdd} />
       </Grid>
       {/*................Add Dialog...................*/}
       <AddDialog
@@ -65,6 +69,7 @@ const Workers = () => {
         setOpenAdd={setOpenAdd}
         firstName={firstName}
         lastName={lastName}
+        profilePicture={profilePicture}
         email={email}
         department={department}
         title={title}

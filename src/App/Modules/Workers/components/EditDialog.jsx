@@ -33,7 +33,7 @@ const useStyles = makeStyles({
 });
 
 const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
-  const [
+  const {
     handleChange,
     firstName,
     setFirstName,
@@ -48,8 +48,10 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
     clearAttributes,
     updateWorker,
     errors,
-    status
-  ] = useEdit();
+    status,
+    profilePicture,
+    setProfilePicture,
+  } = useEdit();
 
   React.useEffect(() => {
     setFirstName(worker.firstName);
@@ -59,8 +61,8 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
     setTitle(worker.title);
   }, [openEdit]);
 
-  React.useEffect(()=>{
-    status===200? setOpenEdit(false): null;
+  React.useEffect(() => {
+    status === 200 ? setOpenEdit(false) : null;
   }, [status]);
 
   const classes = useStyles();
@@ -177,6 +179,31 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
                   className={classes.errors}
                 >
                   {errors && errors.department && errors.department.message}
+                </Typography>
+              </Grid>
+              {/* .............................PROFILE PICTURE.............................. */}
+              <Grid item xs={6}>
+                <Typography variant="body1">
+                  <b>
+                    <i>Profile picture:</i>
+                  </b>
+                </Typography>
+                <input
+                  name="profilePicture"
+                  type="file"
+                  id="profilePicture"
+                  className={classes.textfield}
+                  onChange={handleChange}
+                  accept="image/png, image/jpeg, image/jpg"
+                />
+                <Typography
+                  variant="body2"
+                  color="error"
+                  className={classes.errors}
+                >
+                  {errors &&
+                    errors.profilePicture &&
+                    errors.profilePicture.message}
                 </Typography>
               </Grid>
               {/* ................................................................................ */}

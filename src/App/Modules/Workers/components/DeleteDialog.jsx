@@ -28,7 +28,7 @@ const DeleteDialog = ({ openDelete, worker, setOpenDelete, deleteWorker }) => {
             Are you sure you want to delete all records of: &emsp;
             <b>
               <i className={classes.name}>
-                {worker.firstName + " " + worker.lastName}?
+                {worker?.firstName + " " + worker?.lastName}?
               </i>
             </b>
           </Typography>
@@ -37,7 +37,7 @@ const DeleteDialog = ({ openDelete, worker, setOpenDelete, deleteWorker }) => {
           <Button
             color="primary"
             onClick={() => {
-              deleteWorker(worker._id);
+              deleteWorker(worker?._id);
               setOpenDelete(false);
             }}
           >

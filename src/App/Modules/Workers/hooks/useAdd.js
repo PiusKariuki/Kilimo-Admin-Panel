@@ -8,6 +8,7 @@ const useAdd = () => {
   const [email, setEmail] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const [errors, setErrors] = useState("");
   const [openAdd, setOpenAdd] = useState(false);
 
@@ -19,19 +20,22 @@ const useAdd = () => {
     setDepartment("");
     setTitle("");
     setErrors("");
+    setProfilePicture("");
   };
 
   /*..................................update animal.................................*/
   const addWorker = () => {
+    const formData = new FormData();
+    formData.append("firstName",firstName);
+    formData.append("lastName",lastName);
+    formData.append("email",email);
+    formData.append("profilePicture",profilePicture);
+    formData.append("title",title);
+    formData.append("password","password");
+    formData.append("department",department);
+
     request
-      .post(`/workers`, {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        department: department,
-        title: title,
-        password: "password"
-      })
+      .post(`/workers`, formData)
       .then(
         (res) => {
           swal("successful!", `${firstName} has been added`, "success");
@@ -71,15 +75,20 @@ const useAdd = () => {
         setTitle(e.target.value);
         break;
       }
+      case "profilePicture": {
+        setProfilePicture(e.target.files[0]);
+        break;
+      }
       default:
         return;
     }
   };
 
-  return [
+  return {
     addWorker,
     firstName,
     lastName,
+    profilePicture,
     email,
     title,
     department,
@@ -88,7 +97,7 @@ const useAdd = () => {
     setOpenAdd,
     openAdd,
     clearAttributes,
-  ];
+  };
 };
 
 export default useAdd;
