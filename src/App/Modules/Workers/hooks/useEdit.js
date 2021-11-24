@@ -6,6 +6,7 @@ const useEdit = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [password,setPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
@@ -63,6 +64,7 @@ const useEdit = () => {
     formData.append("lastName", lastName);
     formData.append("email", email);
     formData.append("profilePicture", profilePicture);
+    formData.append("password", password);
     formData.append("title", title);
     formData.append("department", department);
 
@@ -88,6 +90,7 @@ const useEdit = () => {
   };
 
   return {
+    setPassword,
     handleChange,
     firstName,
     setFirstName,

@@ -11,7 +11,7 @@ const useFetch = () => {
   const [animal, setAnimal] = useState("");
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [deleteObj,setDeleteObj] = useState("")
+  const [deleteObj,setDeleteObj] = useState("");
 
   /* ...............get all animals in dept....................*/
   const getAnimals = (department) => {

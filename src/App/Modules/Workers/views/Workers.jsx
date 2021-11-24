@@ -22,9 +22,8 @@ const useStyles = makeStyles({
 });
 
 const Workers = () => {
-  const [
+  const {
     getAllWorkers,
-    editWorker,
     data,
     openEdit,
     setOpenEdit,
@@ -33,7 +32,7 @@ const Workers = () => {
     deleteWorker,
     load,
     worker,
-  ] = useFetch();
+   } = useFetch();
 
   const {
     profilePicture,

@@ -34,6 +34,9 @@ const useStyles = makeStyles({
 
 const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
   const {
+    profilePicture,
+    setProfilePicture,
+    setPassword,
     handleChange,
     firstName,
     setFirstName,
@@ -49,8 +52,6 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
     updateWorker,
     errors,
     status,
-    profilePicture,
-    setProfilePicture,
   } = useEdit();
 
   React.useEffect(() => {
@@ -59,6 +60,8 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
     setEmail(worker.email);
     setDepartment(worker.department);
     setTitle(worker.title);
+    setPassword(worker.password);
+    setProfilePicture(worker.profilePicture);
   }, [openEdit]);
 
   React.useEffect(() => {
@@ -194,7 +197,7 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
                   id="profilePicture"
                   className={classes.textfield}
                   onChange={handleChange}
-                  accept="image/png, image/jpeg, image/jpg"
+                  accept=".jpg, .png, .jpeg"
                 />
                 <Typography
                   variant="body2"

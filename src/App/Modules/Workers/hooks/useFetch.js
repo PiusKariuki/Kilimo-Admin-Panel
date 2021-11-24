@@ -110,7 +110,7 @@ const useFetch = () => {
     rows: dataWithActions(allWorkers, handleView, handleDelete),
   };
 
-  return [
+  return {
     getAllWorkers,
     editWorker,
     data,
@@ -121,7 +121,7 @@ const useFetch = () => {
     deleteWorker,
     load,
     worker,
-  ];
+  };
 };
 
 export default useFetch;

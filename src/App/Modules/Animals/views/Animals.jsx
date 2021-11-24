@@ -57,6 +57,8 @@ const Animals = () => {
     getAnimals(department);
   }, [openDelete]);
 
+
+
   return (
     <Grid container>
       <ViewDialog
