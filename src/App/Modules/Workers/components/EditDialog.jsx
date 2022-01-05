@@ -8,13 +8,9 @@ import {
   Button,
   FormControl,
   Grid,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
 } from "@material-ui/core";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import { makeStyles } from "@material-ui/core/styles";
+import useSpinner from "App/Common/Spinner/Spinner";
 import React from "react";
 import useEdit from "../hooks/useEdit";
 
@@ -34,7 +30,6 @@ const useStyles = makeStyles({
 
 const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
   const {
-    profilePicture,
     setProfilePicture,
     setPassword,
     handleChange,
@@ -52,8 +47,10 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
     updateWorker,
     errors,
     status,
+    editLoad,
   } = useEdit();
 
+  const [renderSpinner] = useSpinner();
   React.useEffect(() => {
     setFirstName(worker.firstName);
     setLastName(worker.lastName);
@@ -72,6 +69,7 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
   return (
     <Dialog open={openEdit}>
       <Card>
+        {renderSpinner(editLoad)}
         <CardContent>
           <Typography variant="subtitle1" color="secondary">
             Edit values here
@@ -214,26 +212,30 @@ const EditDialog = ({ openEdit, setOpenEdit, worker, getAllWorkers }) => {
           </FormControl>
         </CardContent>
         <CardActions className={classes.actions}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              updateWorker(worker._id);
-              getAllWorkers();
-            }}
-          >
-            Submit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              clearAttributes();
-              setOpenEdit(false);
-            }}
-          >
-            Close
-          </Button>
+          {editLoad ? null : (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  updateWorker(worker._id);
+                  getAllWorkers();
+                }}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  clearAttributes();
+                  setOpenEdit(false);
+                }}
+              >
+                Close
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </Dialog>

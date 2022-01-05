@@ -6,12 +6,13 @@ const useEdit = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [errors, setErrors] = useState("");
   const [status, setStatus] = useState("");
+  const [editLoad, setEditLoad] = useState(false);
 
   /*..............................form change handler.........................*/
   const handleChange = (e) => {
@@ -68,6 +69,7 @@ const useEdit = () => {
     formData.append("title", title);
     formData.append("department", department);
 
+    setEditLoad(true);
     request
       .put(`/workers/${workerID}`, formData)
       .then(
@@ -79,17 +81,21 @@ const useEdit = () => {
           );
           setStatus(res.status);
           clearAttributes();
+          setEditLoad(false);
         },
         (err) => {
           setErrors(err.response.data);
+          setEditLoad(false);
         }
       )
       .catch((err) => {
         setErrors(err.response.data);
+        setEditLoad(false);
       });
   };
 
   return {
+    editLoad,
     setPassword,
     handleChange,
     firstName,

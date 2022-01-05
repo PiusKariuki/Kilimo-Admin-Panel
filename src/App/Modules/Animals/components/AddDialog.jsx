@@ -11,6 +11,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useSpinner from "App/Common/Spinner/Spinner";
 
 const useStyles = makeStyles({
   textfield: {
@@ -24,7 +25,6 @@ const useStyles = makeStyles({
   listItems: {
     margin: "0",
   },
-
 });
 
 const AddDialog = ({
@@ -39,15 +39,18 @@ const AddDialog = ({
   department,
   getAnimals,
   setOpen,
-  clearAttributes
+  clearAttributes,
+  load,
 }) => {
+  const [renderSpinner] = useSpinner();
   const classes = useStyles();
   return (
     <Dialog open={open}>
       <Card>
+        {renderSpinner(load)}
         <CardContent>
           <FormControl>
-            <Grid container >
+            <Grid container>
               {/* .............................NAME.............................. */}
               <Grid item xs={6}>
                 <Typography variant="body1">
@@ -137,26 +140,30 @@ const AddDialog = ({
           </FormControl>
         </CardContent>
         <CardActions className={classes.actions}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              addAnimal(department);
-              getAnimals(department);
-            }}
-          >
-            Submit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              setOpen(false);
-              clearAttributes();
-            }}
-          >
-            Close
-          </Button>
+          {load ? null : (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  addAnimal(department);
+                  getAnimals(department);
+                }}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setOpen(false);
+                  clearAttributes();
+                }}
+              >
+                Close
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </Dialog>

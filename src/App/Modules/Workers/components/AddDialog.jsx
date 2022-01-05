@@ -11,6 +11,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useSpinner from "App/Common/Spinner/Spinner";
 
 const useStyles = makeStyles({
   textfield: {
@@ -32,8 +33,6 @@ const AddDialog = ({
   setOpenAdd,
   firstName,
   lastName,
-  userName,
-  profilePicture,
   email,
   department,
   title,
@@ -41,11 +40,14 @@ const AddDialog = ({
   errors,
   addWorker,
   clearAttributes,
+  load,
 }) => {
   const classes = useStyles();
+  const [renderSpinner] = useSpinner();
   return (
     <Dialog open={openAdd}>
       <Card>
+        {renderSpinner(load)}
         <CardContent>
           <FormControl>
             <Grid container>
@@ -184,26 +186,30 @@ const AddDialog = ({
           </FormControl>
         </CardContent>
         <CardActions className={classes.actions}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              addWorker();
-              getAllWorkers();
-            }}
-          >
-            Submit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              setOpenAdd(false);
-              clearAttributes();
-            }}
-          >
-            Close
-          </Button>
+          {load ? null : (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  addWorker();
+                  getAllWorkers();
+                }}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setOpenAdd(false);
+                  clearAttributes();
+                }}
+              >
+                Close
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </Dialog>

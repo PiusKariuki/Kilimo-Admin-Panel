@@ -32,7 +32,7 @@ const Workers = () => {
     deleteWorker,
     load,
     worker,
-   } = useFetch();
+  } = useFetch();
 
   const {
     profilePicture,
@@ -47,6 +47,7 @@ const Workers = () => {
     setOpenAdd,
     openAdd,
     clearAttributes,
+    addLoad,
   } = useAdd();
 
   React.useEffect(() => {
@@ -63,6 +64,7 @@ const Workers = () => {
       </Grid>
       {/*................Add Dialog...................*/}
       <AddDialog
+        load={addLoad}
         getAllWorkers={getAllWorkers}
         openAdd={openAdd}
         setOpenAdd={setOpenAdd}

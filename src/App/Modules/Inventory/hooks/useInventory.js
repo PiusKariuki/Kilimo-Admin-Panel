@@ -27,6 +27,7 @@ const useInventory = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [item, setItem] = useState([]);
   const [errorMsgs,setErrors] = useState([]);
+  const [editLoad, setEditLoad] = useState(false);
 
   const classes = useStyles();
 
@@ -143,6 +144,7 @@ const useInventory = () => {
     department,
     email
   ) => {
+    setEditLoad(true);
     request
       .put(`/inventory/${target.value}`, {
         name: name,
@@ -158,13 +160,17 @@ const useInventory = () => {
           fetchInventory();
           setOpenEdit(false)
           setErrors("");
+          setEditLoad(false);
         },
         (err) => {
           setErrors(err.response.data);
+          setEditLoad(false);
+
         }
       )
       .catch((err) => {
         setErrors(err.response.data);
+          setEditLoad(false);
       });
   };
 
@@ -200,6 +206,7 @@ const useInventory = () => {
   };
 
   return{ 
+    editLoad,
     load,
     fetchInventory,
     data,

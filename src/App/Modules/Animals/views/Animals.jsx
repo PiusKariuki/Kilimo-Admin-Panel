@@ -49,6 +49,7 @@ const Animals = () => {
     setOpen,
     open,
     clearAttributes,
+    addLoad
   } = useAdd();
 
   const [renderSpinner] = useSpinner();
@@ -69,6 +70,7 @@ const Animals = () => {
         getAnimals={getAnimals}
       />
       <AddDialog
+      load={addLoad}
         name={name}
         breed={breed}
         age={age}

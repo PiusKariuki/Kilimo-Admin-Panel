@@ -10,6 +10,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useSpinner from "App/Common/Spinner/Spinner";
 import React from "react";
 import useEdit from "../hooks/useEdit";
 
@@ -31,10 +32,12 @@ const EditModal = ({
   email,
   fetchInventory,
   errors,
+  load,
 }) => {
   /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
                                     -hook calls
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^*/
+  const [renderSpinner] = useSpinner();
   const {
     name,
     setName,
@@ -62,6 +65,7 @@ const EditModal = ({
   return (
     <Dialog open={open}>
       <Card>
+        {renderSpinner(load)}
         <CardContent>
           <Typography variant="subtitle2">Edit values here</Typography>
           <hr />
@@ -177,36 +181,40 @@ const EditModal = ({
         </CardContent>
         {/* ...........................Actions............................................................ */}
         <CardActions className={classes.actions}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            size="small"
-            onClick={() => {
-              editInventoryItem(
-                name,
-                amount,
-                vendor,
-                unit_weight,
-                department,
-                email
-              );
-              fetchInventory();
-            }}
-          >
-            Submit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            onClick={() => {
-              setOpen(false);
-              fetchInventory();
-            }}
-          >
-            Close
-          </Button>
+          {load ? null : (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                size="small"
+                onClick={() => {
+                  editInventoryItem(
+                    name,
+                    amount,
+                    vendor,
+                    unit_weight,
+                    department,
+                    email
+                  );
+                  fetchInventory();
+                }}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                onClick={() => {
+                  setOpen(false);
+                  fetchInventory();
+                }}
+              >
+                Close
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </Dialog>

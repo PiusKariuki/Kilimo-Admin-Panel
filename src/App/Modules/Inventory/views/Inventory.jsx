@@ -7,7 +7,6 @@ import { MDBDataTableV5 } from "mdbreact";
 import React from "react";
 
 import { connect } from "react-redux";
-// history import
 import { withRouter } from "react-router-dom";
 
 import useInventory from "../hooks/useInventory";
@@ -52,7 +51,8 @@ const Inventory = ({ email }) => {
 
   const [renderSpinner] = useSpinner();
   const classes = useStyles();
-  const{ 
+  const {
+    editLoad,
     load,
     fetchInventory,
     data,
@@ -65,10 +65,17 @@ const Inventory = ({ email }) => {
     item,
     editInventoryItem,
     errorMsgs,
-   }= useInventory();
+  } = useInventory();
 
-  const {addItem, handleChange, errors, setErrors, openAdd, setOpenAdd} =
-    useAdd();
+  const {
+    addItem,
+    handleChange,
+    errors,
+    setErrors,
+    openAdd,
+    setOpenAdd,
+    addLoad,
+  } = useAdd();
   return (
     <Grid container className={classes.container}>
       <DeletePrompt
@@ -80,6 +87,7 @@ const Inventory = ({ email }) => {
       />
 
       <EditModal
+        load={editLoad}
         open={openEdit}
         setOpen={setOpenEdit}
         item={item}
@@ -89,6 +97,7 @@ const Inventory = ({ email }) => {
         errors={errorMsgs}
       />
       <AddModal
+        load={addLoad}
         setOpen={setOpenAdd}
         open={openAdd}
         fetchInventory={fetchInventory}

@@ -15,7 +15,7 @@ import useEdit from "../hooks/useEdit";
 
 const useStyles = makeStyles({
   textfield: {
-    width: "15rem",
+    width: "55vw",
     padding: "1rem",
   },
   actions: {

@@ -10,6 +10,7 @@ const useAdd = () => {
   const [department, setDepartment] = useState("");
   const [errors, setErrors] = useState("");
   const [openAdd, setOpenAdd] = useState(false);
+  const [addLoad,setAddLoad] = useState(false);
 
   const handleChange = (e) => {
     switch (e.target.id) {
@@ -39,6 +40,7 @@ const useAdd = () => {
   };
 
   const addItem = () => {
+    setAddLoad(true);
     request
       .post(`/inventory`, {
         name: name,
@@ -57,18 +59,22 @@ const useAdd = () => {
           setUnit_weight("");
           setDepartment("");
           setErrors("");
+          setAddLoad(false);
         },
         (err) => {
           err.response.status === 400
             ? swal("Duplicate error", err.response.data, "error")
             : setErrors(err.response.data);
+          setAddLoad(false);
+
         }
       )
       .catch((err) => {
         setErrors(err.response.data);
+          setAddLoad(false);
       });
   };
 
-  return {addItem, handleChange, errors, setErrors, openAdd, setOpenAdd};
+  return {addItem, handleChange, errors, setErrors, openAdd, setOpenAdd,addLoad};
 };
 export default useAdd;

@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Modal,
-  Dialog,
   Card,
   CardContent,
   CardActions,
@@ -14,6 +13,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { Line } from "react-chartjs-2";
 import useView from "../hooks/useView";
+import useSpinner from "App/Common/Spinner/Spinner";
 
 const useStyles = makeStyles({
   textfield: {
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
 });
 
 const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
+  const [renderSpinner] = useSpinner();
   const {
     handleChange,
     name,
@@ -53,6 +54,7 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
     updateAnimal,
     errors,
     status,
+    editLoad,
   } = useView();
 
   React.useEffect(() => {
@@ -89,8 +91,10 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
     ],
   };
   /*..............................chart data for products graph.......................*/
-  const productDates = products && products.map((product) => new Date(product?.date).toLocaleDateString());
-  const prods = products && products.map(p => p?.litres || p?.number);
+  const productDates =
+    products &&
+    products.map((product) => new Date(product?.date).toLocaleDateString());
+  const prods = products && products.map((p) => p?.litres || p?.number);
   const productData = {
     labels: productDates,
     datasets: [
@@ -110,6 +114,7 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
   return (
     <Modal open={open}>
       <Card>
+        {renderSpinner(editLoad)}
         <CardContent>
           <Typography variant="subtitle1" color="secondary">
             Edit values here
@@ -246,26 +251,30 @@ const ViewDialog = ({ open, setOpen, animal, department, getAnimals }) => {
           </FormControl>
         </CardContent>
         <CardActions className={classes.actions}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              updateAnimal(department, tagNo);
-              getAnimals(department);
-            }}
-          >
-            Submit
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => {
-              setOpen(false);
-              clearAttributes();
-            }}
-          >
-            Close
-          </Button>
+          {editLoad ? null : (
+            <>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  updateAnimal(department, tagNo);
+                  getAnimals(department);
+                }}
+              >
+                Submit
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setOpen(false);
+                  clearAttributes();
+                }}
+              >
+                Close
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </Modal>

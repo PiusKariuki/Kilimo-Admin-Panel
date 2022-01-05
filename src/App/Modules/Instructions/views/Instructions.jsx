@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React from "react";
 import { MDBDataTableV5 } from "mdbreact";
 import useInstructions from "../hooks/useInstructions";
 import TopBtns from "../components/TopBtns";
@@ -30,6 +30,7 @@ const Instructions = () => {
     handleDelete,
   } = useInstructions();
   const {
+    addLoad,
     task,
     errors,
     handleChange,
@@ -48,6 +49,7 @@ const Instructions = () => {
       />
       {/* ................................................................ */}
       <AddDialog
+        load={addLoad}
         task={task}
         department={department}
         errors={errors}

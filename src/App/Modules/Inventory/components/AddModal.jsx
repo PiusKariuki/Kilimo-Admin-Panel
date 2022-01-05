@@ -10,11 +10,12 @@ import {
   Grid,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useSpinner from "App/Common/Spinner/Spinner";
 import React from "react";
 
 const useStyles = makeStyles({
   errors: {
-    marginBottom: "0.5rem"
+    marginBottom: "0.5rem",
   },
   textfield: {
     width: "10rem",
@@ -32,12 +33,15 @@ const AddModal = ({
   handleChange,
   fetchInventory,
   errors,
-  setErrors
+  setErrors,
+  load,
 }) => {
+  const [renderSpinner] = useSpinner();
   const classes = useStyles();
   return (
     <Dialog open={open}>
       <Card>
+        {renderSpinner(load)}
         <CardContent>
           <Typography variant="subtitle2">Edit values here</Typography>
           <hr />
@@ -144,30 +148,34 @@ const AddModal = ({
           </FormControl>
         </CardContent>
         <CardActions className={classes.actions}>
-          <Button
-            type="button"
-            color="primary"
-            size="small"
-            variant="contained"
-            onClick={() => {
-              addItem();
-              fetchInventory();
-            }}
-          >
-            Submit
-          </Button>
-          <Button
-            color="secondary"
-            size="small"
-            variant="contained"
-            onClick={() => {
-              fetchInventory();
-              setOpen(false);
-              setErrors("");
-            }}
-          >
-            Close
-          </Button>
+          {load ? null : (
+            <>
+              <Button
+                type="button"
+                color="primary"
+                size="small"
+                variant="contained"
+                onClick={() => {
+                  addItem();
+                  fetchInventory();
+                }}
+              >
+                Submit
+              </Button>
+              <Button
+                color="secondary"
+                size="small"
+                variant="contained"
+                onClick={() => {
+                  fetchInventory();
+                  setOpen(false);
+                  setErrors("");
+                }}
+              >
+                Close
+              </Button>
+            </>
+          )}
         </CardActions>
       </Card>
     </Dialog>
