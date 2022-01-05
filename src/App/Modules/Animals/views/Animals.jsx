@@ -55,7 +55,7 @@ const Animals = () => {
 
   React.useEffect(() => {
     getAnimals(department);
-  }, [openDelete]);
+  }, [openDelete, department]);
 
 
 
