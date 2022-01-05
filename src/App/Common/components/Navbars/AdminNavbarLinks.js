@@ -16,10 +16,12 @@ import Person from "@material-ui/icons/Person";
 import Button from "../CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import { connect } from "react-redux";
+import { logout } from "App/Modules/Auth/Store/ActionCreators/ActionCreators";
 
 const useStyles = makeStyles(styles);
 
-export default function AdminNavbarLinks() {
+function AdminNavbarLinks({ logout }) {
   const classes = useStyles();
   const [openProfile, setOpenProfile] = React.useState(null);
 
@@ -81,7 +83,10 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={() => {
+                        logout();
+                        handleCloseProfile;
+                      }}
                       className={classes.dropdownItem}
                     >
                       Logout
@@ -96,3 +101,8 @@ export default function AdminNavbarLinks() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logout()),
+});
+export default connect(null, mapDispatchToProps)(AdminNavbarLinks);

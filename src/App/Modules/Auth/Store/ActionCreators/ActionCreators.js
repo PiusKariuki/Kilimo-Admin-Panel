@@ -74,3 +74,16 @@ export const emailFailed = (errmess) => ({
 export const loading = () => ({
   type: ActionTypes.LOADING,
 });
+
+export const logoutThunk = () => (dispatch) => {
+  return axios
+    .post("/logout")
+    .then(() => {
+      localStorage.removeItem("kilimo-admin");
+      dispatch(logout)
+    })
+    .catch((err) => err);
+};
+export const logout = () => ({
+  type: ActionTypes.LOGOUT,
+});

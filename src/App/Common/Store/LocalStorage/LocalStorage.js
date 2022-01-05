@@ -2,7 +2,7 @@
 export const loadState = () => {
   // calls to getItem can fail so we wrap in try-catch
   try {
-    const serializedState = localStorage.getItem("state");
+    const serializedState = localStorage.getItem("kilimo-admin");
     // if serialized state is null means it doesn't exist
     if (serializedState === null) {
       return undefined;
@@ -19,7 +19,7 @@ export const saveState = (state) => {
   // redux recommends state be serializeable
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("state", serializedState);
+    localStorage.setItem("kilimo-admin", serializedState);
   } catch (err) {
     return err;
   }
