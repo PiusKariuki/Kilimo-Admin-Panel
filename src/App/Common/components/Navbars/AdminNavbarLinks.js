@@ -76,13 +76,6 @@ function AdminNavbarLinks({ logout }) {
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
                     <MenuItem
-                      onClick={handleCloseProfile}
-                      className={classes.dropdownItem}
-                    >
-                      Profile
-                    </MenuItem>
-                    <Divider light />
-                    <MenuItem
                       onClick={() => {
                         logout();
                         handleCloseProfile;
