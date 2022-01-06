@@ -9,6 +9,7 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useSpinner from "App/Common/Spinner/Spinner";
 
 const useStyles = makeStyles({
   formControl: {
@@ -46,6 +47,7 @@ const SelectDepartment = ({
   setDepartment,
   setOpen,
 }) => {
+  const [renderSpinner] = useSpinner();
   React.useEffect(() => {
     getAnimals(department);
   }, [setDepartment]);
