@@ -26,7 +26,7 @@ const useInventory = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [item, setItem] = useState([]);
-  const [errorMsgs,setErrors] = useState([]);
+  const [errorMsgs, setErrors] = useState([]);
   const [editLoad, setEditLoad] = useState(false);
 
   const classes = useStyles();
@@ -158,19 +158,18 @@ const useInventory = () => {
         (res) => {
           swal("successful!", `${name} has been updated`, "success");
           fetchInventory();
-          setOpenEdit(false)
+          setOpenEdit(false);
           setErrors("");
           setEditLoad(false);
         },
         (err) => {
           setErrors(err.response.data);
           setEditLoad(false);
-
         }
       )
       .catch((err) => {
         setErrors(err.response.data);
-          setEditLoad(false);
+        setEditLoad(false);
       });
   };
 
@@ -193,19 +192,25 @@ const useInventory = () => {
   };
 
   const getItemById = (id) => {
+    setLoad(true);
     request
       .get(`/inventory/${id}`)
       .then(
         (res) => {
           setItem(res.data);
+          setLoad(false);
         },
-        (err) => {}
+        (err) => {
+          setLoad(false);
+        }
       )
       .then((err) => setOpenEdit(true))
-      .catch((err) => {});
+      .catch((err) => {
+        setLoad(false);
+      });
   };
 
-  return{ 
+  return {
     editLoad,
     load,
     fetchInventory,

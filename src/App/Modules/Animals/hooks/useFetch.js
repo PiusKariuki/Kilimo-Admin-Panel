@@ -11,22 +11,26 @@ const useFetch = () => {
   const [animal, setAnimal] = useState("");
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [deleteObj,setDeleteObj] = useState("");
+  const [deleteObj, setDeleteObj] = useState("");
 
   /* ...............get all animals in dept....................*/
   const getAnimals = (department) => {
+    setLoad(true);
     request
       .get(`animals/${department}`)
       .then(
         (res) => {
           setAnimals(res.data);
           setLoad(false);
+          setLoad(false);
         },
         (err) => {
+          setLoad(false);
           setLoad(false);
         }
       )
       .catch((err) => {
+        setLoad(false);
         setLoad(false);
       });
   };
@@ -34,19 +38,23 @@ const useFetch = () => {
 
   /*...........get animal by id function..................................*/
   const getDetails = (department, animalID) => {
+    setLoad(true);
     request
       .get(`/animals/${department}/${animalID}`)
       .then(
         (res) => {
           setAnimal(res.data);
+          setLoad(false);
         },
         (err) => {
           swal("error", "animal not found", "error");
+          setLoad(false);
         }
       )
       .then(() => setOpenEdit(true))
       .catch((err) => {
         swal("error", "animal not found", "error");
+        setLoad(false);
       });
   };
   /*................................................................................*/
@@ -67,7 +75,13 @@ const useFetch = () => {
 
   const data = {
     columns,
-    rows: dataWithActions(animals, department, getDetails, setOpenDelete,setDeleteObj),
+    rows: dataWithActions(
+      animals,
+      department,
+      getDetails,
+      setOpenDelete,
+      setDeleteObj
+    ),
   };
 
   return [
@@ -82,7 +96,7 @@ const useFetch = () => {
     openDelete,
     setOpenDelete,
     deleteAnimal,
-    deleteObj
+    deleteObj,
   ];
 };
 

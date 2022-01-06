@@ -8,6 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AddDialog from "../components/AddDialog";
 import EditDialog from "../components/EditDialog";
 import DeleteDialog from "../components/DeleteDialog";
+import useSpinner from "App/Common/Spinner/Spinner";
 
 const useStyles = makeStyles({
   container: {
@@ -17,7 +18,9 @@ const useStyles = makeStyles({
 
 const Instructions = () => {
   const classes = useStyles();
+  const [renderSpinner] = useSpinner();
   const {
+    load,
     instruction,
     data,
     getInstructionsByDepartment,
@@ -79,6 +82,7 @@ const Instructions = () => {
       />
       {/*........................ datatable............................................ */}
       <Grid item xs={12}>
+        {renderSpinner(load)}
         <MDBDataTableV5
           hover
           responsive

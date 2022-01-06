@@ -10,50 +10,64 @@ const useInstructions = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [department, setDepartment] = useState("");
+  const [load, setLoad] = useState(false);
 
   /*................get instructions by department....................*/
   const getInstructionsByDepartment = (department) => {
-    Request
-      .get(`/tasks/departments/${department}`)
+    setLoad(true);
+    Request.get(`/tasks/departments/${department}`)
       .then((res) => {
         setInstructions(res.data);
+        setLoad(false);
       })
-      .catch();
+      .catch(() => setLoad(false));
   };
 
   /*.................get instruction by id.......................*/
   const getInstructionsById = (id) => {
-    Request
-      .get(`/tasks/${id}`)
+    setLoad(true);
+
+    Request.get(`/tasks/${id}`)
       .then((res) => {
+        setLoad(false);
         setInstruction(res.data);
       })
       .then(() => setOpenDelete(true))
-      .catch((err) => swal("error", "", "error"));
+      .catch((err) => {swal("error", "", "error")
+        setLoad(false);
+    });
   };
   /*.................deletehandler.......................*/
   const handleEdit = (id) => {
-    Request
-      .get(`/tasks/${id}`)
+        setLoad(true);
+    Request.get(`/tasks/${id}`)
       .then((res) => {
+        setLoad(false);
         setInstruction(res.data);
       })
       .then(() => setOpenEdit(true))
-      .catch((err) => swal("error", "", "error"));
+      .catch((err) =>{
+        setLoad(false);
+         swal("error", "", "error");
+      });
   };
   /*.................deletehandler.......................*/
   const handleDelete = (id) => {
-    Request
-      .delete(`/tasks/${id}`)
+        setLoad(true);
+    Request.delete(`/tasks/${id}`)
       .then((res) => {
         swal("success", "", "success");
+        setLoad(false);
         setOpenDelete(false);
       })
       .then(() => {
         setOpenDelete(false);
         getInstructionsByDepartment(department);
       })
-      .catch((err) => swal("error", "", "error"));
+      .catch((err) => {swal("error", "", "error")
+        setLoad(false);
+    
+    });
   };
 
   /*.................................................editing functions.......................*/
@@ -64,6 +78,7 @@ const useInstructions = () => {
     rows: dataWithActions(instructions, handleEdit, getInstructionsById),
   };
   return {
+    load,
     instruction,
     instructions,
     data,

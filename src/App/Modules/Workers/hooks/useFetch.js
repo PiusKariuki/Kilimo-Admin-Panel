@@ -33,6 +33,7 @@ const useFetch = () => {
   };
   /*......................get worker details.....................................*/
   const editWorker = (name, email, department, title) => {
+    setLoad(true);
     request
       .put(`/workers/${workerID}`, {
         name: name,
@@ -43,11 +44,16 @@ const useFetch = () => {
       .then(
         (res) => {
           swal("Successful", `${name} has been updated`, "success");
+          setLoad(false);
         },
-        (err) => setErrors(err.response.data)
+        (err) => {
+          setErrors(err.response.data);
+          setLoad(false);
+        }
       )
       .then((err) => {
         setErrors(err.response.data);
+        setLoad(false);
       });
   };
 
@@ -67,12 +73,15 @@ const useFetch = () => {
   };
   /*.....................edit button click handler................................*/
   const handleView = (workerId) => {
+        setLoad(true);
     request
       .get(`/workers/${workerId}`)
       .then(
         (res) => {
           setLoad(false);
           setWorker(res.data);
+        setLoad(false);
+
         },
         (err) => {
           swal("Error", err.response.message, "error");
@@ -88,14 +97,19 @@ const useFetch = () => {
   };
   /*...................................get worker by Id.................................*/
   const handleDelete = (workerId) => {
+    setLoad(true);
     request
       .get(`/workers/${workerId}`)
       .then(
         (res) => {
           setWorker(res.data);
+        setLoad(false);
+
         },
         (err) => {
           swal("Error", err.response.message, "error");
+        setLoad(false);
+
         }
       )
       .then(() => setOpenDelete(true))
