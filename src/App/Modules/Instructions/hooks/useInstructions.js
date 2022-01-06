@@ -75,7 +75,7 @@ const useInstructions = () => {
   /*.......................data to populate datatable...................*/
   const data = {
     columns,
-    rows: dataWithActions(instructions, handleEdit, getInstructionsById),
+    rows: dataWithActions(load,instructions, handleEdit, getInstructionsById),
   };
   return {
     load,

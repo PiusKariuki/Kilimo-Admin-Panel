@@ -22,15 +22,12 @@ const useFetch = () => {
         (res) => {
           setAnimals(res.data);
           setLoad(false);
-          setLoad(false);
         },
         (err) => {
-          setLoad(false);
           setLoad(false);
         }
       )
       .catch((err) => {
-        setLoad(false);
         setLoad(false);
       });
   };
@@ -61,21 +58,30 @@ const useFetch = () => {
 
   /*....................................delete function.............................*/
   const deleteAnimal = (animalID) => {
+    setLoad(true);
     request
       .delete(`/animals/${department}/${animalID}`)
       .then(
         (res) => {
           swal("success", "animal deleted", "success");
+          setLoad(false);
           setOpenDelete(false);
+          getAnimals(department)
         },
-        (err) => swal("error", "animal not found", "error")
+        (err) => {swal("error", "animal not found", "error")
+        setLoad(false);
+      
+      }
       )
-      .catch((err) => swal("error", "animal not found", "error"));
+      .catch((err) => {swal("error", "animal not found", "error")
+        setLoad(false);
+    });
   };
 
   const data = {
     columns,
     rows: dataWithActions(
+      load,
       animals,
       department,
       getDetails,

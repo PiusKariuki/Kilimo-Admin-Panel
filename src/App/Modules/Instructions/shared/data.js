@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const dataWithActions = (instructions, handleEdit, getInstructionsById) => {
+export const dataWithActions = (load,instructions, handleEdit, getInstructionsById) => {
   const classes = useStyles();
 
   return instructions.map((obj) =>
@@ -23,6 +23,7 @@ export const dataWithActions = (instructions, handleEdit, getInstructionsById) =
       btns: (
         <>
           <Button
+          disabled={load}
             value={obj._id}
             size="small"
             name={obj.name}
@@ -36,6 +37,7 @@ export const dataWithActions = (instructions, handleEdit, getInstructionsById) =
             Edit
           </Button>
           <Button
+          disabled={load}
             type="button"
             value={obj._id}
             id={obj.name}

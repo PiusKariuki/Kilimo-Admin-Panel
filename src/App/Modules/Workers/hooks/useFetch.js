@@ -121,7 +121,7 @@ const useFetch = () => {
   /*...................................data for datatable.....................*/
   const data = {
     columns,
-    rows: dataWithActions(allWorkers, handleView, handleDelete),
+    rows: dataWithActions(load,allWorkers, handleView, handleDelete),
   };
 
   return {

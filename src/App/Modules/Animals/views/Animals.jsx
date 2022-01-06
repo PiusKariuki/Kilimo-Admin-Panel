@@ -49,16 +49,14 @@ const Animals = () => {
     setOpen,
     open,
     clearAttributes,
-    addLoad
+    addLoad,
   } = useAdd();
 
   const [renderSpinner] = useSpinner();
 
-  React.useEffect(() => {
-    getAnimals(department);
-  }, [openDelete, department]);
-
-
+  // React.useEffect(() => {
+  //   getAnimals(department);
+  // }, [openDelete, department]);
 
   return (
     <Grid container>
@@ -70,7 +68,7 @@ const Animals = () => {
         getAnimals={getAnimals}
       />
       <AddDialog
-      load={addLoad}
+        load={addLoad}
         name={name}
         breed={breed}
         age={age}
@@ -85,6 +83,8 @@ const Animals = () => {
         clearAttributes={clearAttributes}
       />
       <DeleteDialog
+        department={department}
+        getAnimals={getAnimals}
         open={openDelete}
         setOpen={setOpenDelete}
         handleDelete={deleteAnimal}
@@ -103,12 +103,13 @@ const Animals = () => {
       <Grid item xs={12}>
         <Box className={classes.box}>
           {renderSpinner(load)}
+
           <MDBDataTableV5
             hover
             responsive
             striped
             bordered
-            data={data}
+            data={!load&&data}
             entries={7}
             btn
           />

@@ -38,6 +38,7 @@ const useInventory = () => {
         btns: (
           <>
             <Button
+            disabled={load}
               value={obj._id}
               size="small"
               name={obj.name}
@@ -52,6 +53,7 @@ const useInventory = () => {
               Edit
             </Button>
             <Button
+            disabled={load}
               type="button"
               value={obj._id}
               id={obj.name}

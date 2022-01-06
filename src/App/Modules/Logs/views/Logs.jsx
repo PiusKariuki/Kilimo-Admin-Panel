@@ -35,7 +35,6 @@ const Logs = () => {
 
   return (
     <Grid container>
-      {renderSpinner(load)}
       <Grid item xs={12}>
         <Box className={classes.box}>
           <Button
@@ -45,6 +44,7 @@ const Logs = () => {
           >
             Refresh
           </Button>
+          {renderSpinner(load)}
           <MDBDataTableV5
             responsive
             striped

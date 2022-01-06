@@ -16,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const dataWithActions = (allWorkers, handleView, handleDelete) => {
+export const dataWithActions = (load,allWorkers, handleView, handleDelete) => {
   const classes = useStyles();
 
   return allWorkers.map((obj) =>
@@ -24,6 +24,7 @@ export const dataWithActions = (allWorkers, handleView, handleDelete) => {
       btns: (
         <>
           <Button
+          disabled={load}
             value={obj._id}
             size="small"
             name={obj.name}
@@ -37,6 +38,7 @@ export const dataWithActions = (allWorkers, handleView, handleDelete) => {
             Edit
           </Button>
           <Button
+          disabled={load}
             type="button"
             value={obj._id}
             id={obj.name}

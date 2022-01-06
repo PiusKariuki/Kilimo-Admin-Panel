@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
   },
 });
-const DeleteDialog = ({ open, deleteObj, setOpen, handleDelete, }) => {
+const DeleteDialog = ({ open, deleteObj, setOpen, handleDelete,getAnimals,department }) => {
   const classes = useStyles();
   return (
     <Dialog open={open}>
