@@ -1,4 +1,4 @@
-import request from "App/Common/Shared/Request";
+import Request from "App/Common/Shared/Request";
 import swal from "sweetalert";
 import { useState } from "react";
 import { columns } from "../shared/columns";
@@ -13,7 +13,7 @@ const useInstructions = () => {
 
   /*................get instructions by department....................*/
   const getInstructionsByDepartment = (department) => {
-    request
+    Request
       .get(`/tasks/departments/${department}`)
       .then((res) => {
         setInstructions(res.data);
@@ -23,7 +23,7 @@ const useInstructions = () => {
 
   /*.................get instruction by id.......................*/
   const getInstructionsById = (id) => {
-    request
+    Request
       .get(`/tasks/${id}`)
       .then((res) => {
         setInstruction(res.data);
@@ -33,7 +33,7 @@ const useInstructions = () => {
   };
   /*.................deletehandler.......................*/
   const handleEdit = (id) => {
-    request
+    Request
       .get(`/tasks/${id}`)
       .then((res) => {
         setInstruction(res.data);
@@ -43,7 +43,7 @@ const useInstructions = () => {
   };
   /*.................deletehandler.......................*/
   const handleDelete = (id) => {
-    request
+    Request
       .delete(`/tasks/${id}`)
       .then((res) => {
         swal("success", "", "success");
