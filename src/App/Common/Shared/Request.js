@@ -6,7 +6,7 @@ const request = axios.create({
   baseURL: baseUrl
 });
 
-const persistentState = localStorage.getItem("state");
+const persistentState = localStorage.getItem("kilimo-admin");
 const tkn = JSON.parse(persistentState)?.User?.tkn;
 
 request.interceptors.request.use(request => {
