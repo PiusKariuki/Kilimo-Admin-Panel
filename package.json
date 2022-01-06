@@ -1,7 +1,7 @@
 {
   "name": "kilimo-admin-panel",
   "version": "1.10.0",
-  "description": "Material Dashboard React. Coded by Creative Tim",
+  "description": "FARM MANAGEMENT SYSTEM",
   "private": false,
   "main": "dist/index.js",
   "dependencies": {
@@ -36,16 +36,8 @@
     "build-package-css": "cp src/assets/css/material-dashboard-react.css dist/material-dashboard-react.css",
     "build-package": "npm run build-package-css && babel src --out-dir dist"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativetimofficial/material-dashboard-react.git"
-  },
   "keywords": [],
-  "author": "Creative Tim <hello@creative-tim.com> (https://www.creative-tim.com/)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/material-dashboard-react/issues"
-  },
   "homepage": "/",
   "optionalDependencies": {
     "@babel/core": "7.14.0",
@@ -64,5 +56,4 @@
     ],
     "development": []
   }
-
 }
