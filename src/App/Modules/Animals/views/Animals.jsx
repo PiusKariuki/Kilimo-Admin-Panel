@@ -54,9 +54,6 @@ const Animals = () => {
 
   const [renderSpinner] = useSpinner();
 
-  // React.useEffect(() => {
-  //   getAnimals(department);
-  // }, [openDelete, department]);
 
   return (
     <Grid container>
@@ -109,7 +106,7 @@ const Animals = () => {
             responsive
             striped
             bordered
-            data={!load&&data}
+            data={data}
             entries={7}
             btn
           />

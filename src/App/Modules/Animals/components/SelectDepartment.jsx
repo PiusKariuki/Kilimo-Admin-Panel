@@ -47,8 +47,9 @@ const SelectDepartment = ({
   setOpen,
 }) => {
   React.useEffect(() => {
+    if(department !=="")
     getAnimals(department);
-  }, [setDepartment&&department!=="departments"]);
+  }, [setDepartment]);
   const classes = useStyles();
   return (
     <Grid container className={classes.container}>

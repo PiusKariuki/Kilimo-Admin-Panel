@@ -1,20 +1,21 @@
 import axios from "axios";
+import ConfigureStore from "../Store/Configure_Store/ConfigureStore";
 
 const baseUrl = "https://kilimo-backend.herokuapp.com";
 
+const store = ConfigureStore();
+
 const request = axios.create({
-  baseURL: baseUrl
+  baseURL: baseUrl,
 });
 
-const persistentState = localStorage.getItem("kilimo-admin");
-const tkn = JSON.parse(persistentState)?.User?.tkn;
+const state  = store.getState();
+const tkn = state?.User?.tkn;
 
-request.interceptors.request.use(request => {
-  request.headers.Authorization = `Bearer ${tkn}`
+console.log(tkn);
+
+request.interceptors.request.use((request) => {
+  request.headers.Authorization = `Bearer ${tkn}`;
   return request;
 });
 export default request;
-
-
-
-

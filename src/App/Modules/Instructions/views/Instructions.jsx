@@ -89,7 +89,7 @@ const Instructions = () => {
           striped
           bordered
           hover
-          data={!load&&data}
+          data={data}
           entries={7}
           btn
         />

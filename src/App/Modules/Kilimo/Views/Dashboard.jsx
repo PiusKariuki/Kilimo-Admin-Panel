@@ -13,9 +13,10 @@ import StorageOutlinedIcon from "@material-ui/icons/StorageOutlined";
 import PetsSharpIcon from "@material-ui/icons/PetsSharp";
 import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
 import PlaylistAddCheckSharpIcon from "@material-ui/icons/PlaylistAddCheckSharp";
-
 import React from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   container: {
@@ -30,6 +31,11 @@ const useStyles = makeStyles({
 const Dashboard = () => {
   const classes = useStyles();
   let history = useHistory();
+  const tkn = useSelector(state => state?.User?.tkn);
+
+  axios.interceptors.request.use((request) => {
+    request.headers.Authorization = `Bearer ${tkn}`;
+  });
 
   return (
     <Grid container className={classes.container}>
