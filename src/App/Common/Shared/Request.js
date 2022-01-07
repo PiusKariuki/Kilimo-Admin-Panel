@@ -9,12 +9,12 @@ const request = axios.create({
   baseURL: baseUrl,
 });
 
-const state  = store.getState();
-const tkn = state?.User?.tkn;
 
-console.log(tkn);
+const subscribe = store.subscribe(() => store.getState());
 
 request.interceptors.request.use((request) => {
+  const state = store.getState();
+  const tkn = state?.User?.tkn;
   request.headers.Authorization = `Bearer ${tkn}`;
   return request;
 });
