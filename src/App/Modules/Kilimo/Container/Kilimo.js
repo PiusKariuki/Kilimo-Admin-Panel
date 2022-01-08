@@ -64,6 +64,8 @@ const Kilimo = ({ ...rest }) => {
 		perfectScrollbar(resizeFunction, mainPanel);
 	}, [mainPanel]);
 
+
+  
 	return (
 		<div className={classes.wrapper}>
 			<Sidebar

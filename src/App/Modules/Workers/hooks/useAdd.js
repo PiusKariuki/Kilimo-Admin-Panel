@@ -1,4 +1,4 @@
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -12,6 +12,7 @@ const useAdd = () => {
   const [errors, setErrors] = useState("");
   const [openAdd, setOpenAdd] = useState(false);
   const [addLoad, setAddLoad] = useState(false);
+  const {request} = useRequest();
 
   /*........................clear errors and values on clicks....................*/
   const clearAttributes = () => {

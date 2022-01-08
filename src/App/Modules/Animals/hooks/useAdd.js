@@ -1,4 +1,4 @@
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -10,6 +10,7 @@ const useAdd = () => {
   const [errors, setErrors] = useState("");
   const [open, setOpen] = useState(false);
   const [addLoad, setAddLoad] = useState(false);
+  const {request} = useRequest();
 
   const addAnimal = (department) => {
     setAddLoad(true);

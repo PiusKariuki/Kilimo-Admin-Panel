@@ -1,6 +1,9 @@
 import swal from "sweetalert";
-import request from "App/Common/Shared/Request";
-
+import axios from "axios";
+const baseUrl = "https://kilimo-backend.herokuapp.com";
+const Axios = axios.create({
+  baseURL: baseUrl,
+})
 //actiontypes imports
 import * as ActionTypes from "../ActionTypes/ActionTypes";
 
@@ -9,7 +12,7 @@ export const Login = (email, password) => (dispatch) => {
   // dispatch loading to activate useSpinner
   dispatch(loading(true));
   const userInfo = { email: email, password: password };
-  return request
+  return Axios
     .post("/admin/login", userInfo)
     .then(
       (res) => {
@@ -43,7 +46,7 @@ export const RegisterThunk = (email) => (dispatch) => {
     email: email,
   };
 
-  return axios
+  return Axios
     .post("/register", newVoter)
     .then((res) => {
       swal(
@@ -76,7 +79,7 @@ export const loading = () => ({
 });
 
 export const logoutThunk = () => (dispatch) => {
-  return axios
+  return Axios
     .post("/logout")
     .then(() => {
       localStorage.removeItem("kilimo-admin");

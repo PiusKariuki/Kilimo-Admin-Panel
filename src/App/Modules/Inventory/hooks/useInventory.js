@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -28,6 +28,7 @@ const useInventory = () => {
   const [item, setItem] = useState([]);
   const [errorMsgs, setErrors] = useState([]);
   const [editLoad, setEditLoad] = useState(false);
+  const {request} = useRequest();
 
   const classes = useStyles();
 

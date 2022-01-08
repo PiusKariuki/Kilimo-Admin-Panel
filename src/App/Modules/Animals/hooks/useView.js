@@ -1,5 +1,5 @@
 import  { useState } from "react";
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import swal from "sweetalert";
 
 const useView = () => {
@@ -13,6 +13,7 @@ const useView = () => {
   const [errors, setErrors] = useState("");
   const [status,setStatus] = useState("");
   const [editLoad, setEditLoad] = useState(false);
+  const {request} = useRequest();
 
   const handleChange = (e) => {
     switch (e.target.id) {

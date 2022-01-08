@@ -1,4 +1,4 @@
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import swal from "sweetalert";
 import { useState } from "react";
 
@@ -6,6 +6,7 @@ const useEdit = () => {
   const [task, setTask] = useState("");
   const [errors, setErrors] = useState("");
   const [res, setRes] = useState("");
+  const {request} = useRequest();
 
   /*........................................*/
   const editInstruction = (id, department) => {

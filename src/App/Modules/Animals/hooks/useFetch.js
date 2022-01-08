@@ -1,4 +1,4 @@
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import { useState } from "react";
 import swal from "sweetalert";
 import { columns } from "../shared/columns";
@@ -12,6 +12,7 @@ const useFetch = () => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
   const [deleteObj, setDeleteObj] = useState("");
+  const {request} = useRequest();
 
   /* ...............get all animals in dept....................*/
   const getAnimals = (department) => {

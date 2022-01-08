@@ -1,4 +1,4 @@
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import { useState } from "react";
 import swal from "sweetalert";
 import { columns } from "../shared/columns";
@@ -11,6 +11,7 @@ const useFetch = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [load, setLoad] = useState(false);
+  const {request} = useRequest();
   /*.......................fetch all workers..................................*/
   const getAllWorkers = () => {
     setLoad(true);

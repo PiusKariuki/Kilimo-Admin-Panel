@@ -1,12 +1,11 @@
-import request from "App/Common/Shared/Request";
-import axios from "axios";
+import useRequest from "App/Common/Shared/useRequest";
 import { useState } from "react";
 import swal from "sweetalert";
-
 
 const useLog = () => {
   const [logs, setLogs] = useState([]);
   const [load, setLoad] = useState(false);
+  const { request } = useRequest();
 
   const getLogs = () => {
     setLoad(true);
@@ -47,10 +46,10 @@ const useLog = () => {
         width: 150,
       },
     ],
-    rows: logs
+    rows: logs,
   };
 
-  return [getLogs,load,data];
+  return [getLogs, load, data];
 };
 
 export default useLog;

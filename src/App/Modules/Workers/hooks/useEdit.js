@@ -1,5 +1,5 @@
 import { useState } from "react";
-import request from "App/Common/Shared/Request";
+import useRequest from "App/Common/Shared/useRequest";
 import swal from "sweetalert";
 
 const useEdit = () => {
@@ -13,6 +13,7 @@ const useEdit = () => {
   const [errors, setErrors] = useState("");
   const [status, setStatus] = useState("");
   const [editLoad, setEditLoad] = useState(false);
+  const {request} = useRequest();
 
   /*..............................form change handler.........................*/
   const handleChange = (e) => {
