@@ -17,7 +17,6 @@ const useStyles = makeStyles({
 });
 
 export const dataWithActions = (
-  load,
   animals,
   department,
   getDetails,
@@ -31,7 +30,6 @@ export const dataWithActions = (
       btns: (
         <>
           <Button
-            disabled={load}
             value={obj._id}
             size="small"
             name={obj.name}
@@ -45,7 +43,6 @@ export const dataWithActions = (
             view
           </Button>
           <Button
-            disabled={load}
             type="button"
             value={obj._id}
             id={obj.name}

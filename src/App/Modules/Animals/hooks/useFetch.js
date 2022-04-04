@@ -1,4 +1,4 @@
-import useRequest from "App/Common/Shared/useRequest";
+import request from "App/Common/Shared/Request";
 import { useState } from "react";
 import swal from "sweetalert";
 import { columns } from "../shared/columns";
@@ -11,12 +11,10 @@ const useFetch = () => {
   const [animal, setAnimal] = useState("");
   const [openEdit, setOpenEdit] = useState(false);
   const [openDelete, setOpenDelete] = useState(false);
-  const [deleteObj, setDeleteObj] = useState("");
-  const {request} = useRequest();
+  const [deleteObj,setDeleteObj] = useState("");
 
   /* ...............get all animals in dept....................*/
   const getAnimals = (department) => {
-    setLoad(true);
     request
       .get(`animals/${department}`)
       .then(
@@ -36,59 +34,40 @@ const useFetch = () => {
 
   /*...........get animal by id function..................................*/
   const getDetails = (department, animalID) => {
-    setLoad(true);
     request
       .get(`/animals/${department}/${animalID}`)
       .then(
         (res) => {
           setAnimal(res.data);
-          setLoad(false);
         },
         (err) => {
           swal("error", "animal not found", "error");
-          setLoad(false);
         }
       )
       .then(() => setOpenEdit(true))
       .catch((err) => {
         swal("error", "animal not found", "error");
-        setLoad(false);
       });
   };
   /*................................................................................*/
 
   /*....................................delete function.............................*/
   const deleteAnimal = (animalID) => {
-    setLoad(true);
     request
       .delete(`/animals/${department}/${animalID}`)
       .then(
         (res) => {
           swal("success", "animal deleted", "success");
-          setLoad(false);
           setOpenDelete(false);
-          getAnimals(department)
         },
-        (err) => {swal("error", "animal not found", "error")
-        setLoad(false);
-      
-      }
+        (err) => swal("error", "animal not found", "error")
       )
-      .catch((err) => {swal("error", "animal not found", "error")
-        setLoad(false);
-    });
+      .catch((err) => swal("error", "animal not found", "error"));
   };
 
   const data = {
     columns,
-    rows: dataWithActions(
-      load,
-      animals,
-      department,
-      getDetails,
-      setOpenDelete,
-      setDeleteObj
-    ),
+    rows: dataWithActions(animals, department, getDetails, setOpenDelete,setDeleteObj),
   };
 
   return [
@@ -103,7 +82,7 @@ const useFetch = () => {
     openDelete,
     setOpenDelete,
     deleteAnimal,
-    deleteObj,
+    deleteObj
   ];
 };
 

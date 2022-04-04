@@ -1,4 +1,4 @@
-import useRequest from "App/Common/Shared/useRequest";
+import request from "App/Common/Shared/Request";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -11,8 +11,6 @@ const useAdd = () => {
   const [profilePicture, setProfilePicture] = useState("");
   const [errors, setErrors] = useState("");
   const [openAdd, setOpenAdd] = useState(false);
-  const [addLoad, setAddLoad] = useState(false);
-  const {request} = useRequest();
 
   /*........................clear errors and values on clicks....................*/
   const clearAttributes = () => {
@@ -36,8 +34,6 @@ const useAdd = () => {
     formData.append("password","password");
     formData.append("department",department);
 
-    setAddLoad(true);
-
     request
       .post(`/workers`, formData)
       .then(
@@ -45,20 +41,15 @@ const useAdd = () => {
           swal("successful!", `${firstName} has been added`, "success");
           setOpenAdd(false);
           clearAttributes();
-          setAddLoad(false);
         },
         (err) => {
           err.response.status === 400
             ? swal("error", err.response.data, "error")
             : setErrors(err.response.data);
-          setAddLoad(false);
-
         }
       )
       .catch((err) => {
         setErrors(err?.response?.data);
-          setAddLoad(false);
-
       });
   };
   /*..............................form change handler.........................*/
@@ -94,7 +85,6 @@ const useAdd = () => {
   };
 
   return {
-    addLoad,
     addWorker,
     firstName,
     lastName,

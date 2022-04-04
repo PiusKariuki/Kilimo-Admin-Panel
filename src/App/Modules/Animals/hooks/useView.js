@@ -1,5 +1,5 @@
 import  { useState } from "react";
-import useRequest from "App/Common/Shared/useRequest";
+import request from "App/Common/Shared/Request";
 import swal from "sweetalert";
 
 const useView = () => {
@@ -12,8 +12,6 @@ const useView = () => {
   const [products, setProducts] = useState("");
   const [errors, setErrors] = useState("");
   const [status,setStatus] = useState("");
-  const [editLoad, setEditLoad] = useState(false);
-  const {request} = useRequest();
 
   const handleChange = (e) => {
     switch (e.target.id) {
@@ -56,7 +54,6 @@ const useView = () => {
 
   /*..................................update animal.................................*/
   const updateAnimal = (department, animalID) => {
-    setEditLoad(true);
     request
       .put(`/animals/${department}/${animalID}`, {
         name: name,
@@ -69,22 +66,17 @@ const useView = () => {
           swal("successful!", `${name} has been updated`, "success");
           setStatus(res.status);
           clearAttributes();
-          setEditLoad(false);
         },
         (err) => {
           setErrors(err.response.data);
-          setEditLoad(false);
-
         }
       )
       .catch((err) => {
         setErrors(err.response.data);
-          setEditLoad(false);
       });
   };
 
   return {
-    editLoad,
     handleChange,
     name,
     setName,

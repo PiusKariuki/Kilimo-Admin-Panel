@@ -16,12 +16,10 @@ import Person from "@material-ui/icons/Person";
 import Button from "../CustomButtons/Button.js";
 
 import styles from "assets/jss/material-dashboard-react/components/headerLinksStyle.js";
-import { connect } from "react-redux";
-import { logout } from "App/Modules/Auth/Store/ActionCreators/ActionCreators";
 
 const useStyles = makeStyles(styles);
 
-function AdminNavbarLinks({ logout }) {
+export default function AdminNavbarLinks() {
   const classes = useStyles();
   const [openProfile, setOpenProfile] = React.useState(null);
 
@@ -76,10 +74,14 @@ function AdminNavbarLinks({ logout }) {
                 <ClickAwayListener onClickAway={handleCloseProfile}>
                   <MenuList role="menu">
                     <MenuItem
-                      onClick={() => {
-                        logout();
-                        handleCloseProfile;
-                      }}
+                      onClick={handleCloseProfile}
+                      className={classes.dropdownItem}
+                    >
+                      Profile
+                    </MenuItem>
+                    <Divider light />
+                    <MenuItem
+                      onClick={handleCloseProfile}
                       className={classes.dropdownItem}
                     >
                       Logout
@@ -94,8 +96,3 @@ function AdminNavbarLinks({ logout }) {
     </div>
   );
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(logout()),
-});
-export default connect(null, mapDispatchToProps)(AdminNavbarLinks);

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import useRequest from "App/Common/Shared/useRequest";
+import request from "App/Common/Shared/Request";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -26,9 +26,7 @@ const useInventory = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [item, setItem] = useState([]);
-  const [errorMsgs, setErrors] = useState([]);
-  const [editLoad, setEditLoad] = useState(false);
-  const {request} = useRequest();
+  const [errorMsgs,setErrors] = useState([]);
 
   const classes = useStyles();
 
@@ -39,7 +37,6 @@ const useInventory = () => {
         btns: (
           <>
             <Button
-            disabled={load}
               value={obj._id}
               size="small"
               name={obj.name}
@@ -54,7 +51,6 @@ const useInventory = () => {
               Edit
             </Button>
             <Button
-            disabled={load}
               type="button"
               value={obj._id}
               id={obj.name}
@@ -147,7 +143,6 @@ const useInventory = () => {
     department,
     email
   ) => {
-    setEditLoad(true);
     request
       .put(`/inventory/${target.value}`, {
         name: name,
@@ -161,18 +156,15 @@ const useInventory = () => {
         (res) => {
           swal("successful!", `${name} has been updated`, "success");
           fetchInventory();
-          setOpenEdit(false);
+          setOpenEdit(false)
           setErrors("");
-          setEditLoad(false);
         },
         (err) => {
           setErrors(err.response.data);
-          setEditLoad(false);
         }
       )
       .catch((err) => {
         setErrors(err.response.data);
-        setEditLoad(false);
       });
   };
 
@@ -195,26 +187,19 @@ const useInventory = () => {
   };
 
   const getItemById = (id) => {
-    setLoad(true);
     request
       .get(`/inventory/${id}`)
       .then(
         (res) => {
           setItem(res.data);
-          setLoad(false);
         },
-        (err) => {
-          setLoad(false);
-        }
+        (err) => {}
       )
       .then((err) => setOpenEdit(true))
-      .catch((err) => {
-        setLoad(false);
-      });
+      .catch((err) => {});
   };
 
-  return {
-    editLoad,
+  return{ 
     load,
     fetchInventory,
     data,

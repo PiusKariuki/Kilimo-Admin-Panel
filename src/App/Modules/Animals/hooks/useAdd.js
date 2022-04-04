@@ -1,4 +1,4 @@
-import useRequest from "App/Common/Shared/useRequest";
+import request from "App/Common/Shared/Request";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -9,11 +9,9 @@ const useAdd = () => {
   const [history, setHistory] = useState("");
   const [errors, setErrors] = useState("");
   const [open, setOpen] = useState(false);
-  const [addLoad, setAddLoad] = useState(false);
-  const {request} = useRequest();
 
+  
   const addAnimal = (department) => {
-    setAddLoad(true);
     request
       .post(`/animals/${department}`, {
         name: name,
@@ -26,18 +24,15 @@ const useAdd = () => {
           swal("successful!", `${name} has been added`, "success");
           setOpen(false);
           clearAttributes();
-          setAddLoad(false);
         },
         (err) => {
           err.response.status === 400
             ? swal("error", err.response.data, "error")
             : setErrors(err.response.data);
-          setAddLoad(false);
         }
       )
       .catch((err) => {
         setErrors(err?.response?.data);
-        setAddLoad(false);
       });
   };
 
@@ -73,7 +68,6 @@ const useAdd = () => {
   };
 
   return {
-    addLoad,
     addAnimal,
     name,
     setName,

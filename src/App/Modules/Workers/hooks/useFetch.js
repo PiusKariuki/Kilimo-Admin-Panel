@@ -1,4 +1,4 @@
-import useRequest from "App/Common/Shared/useRequest";
+import request from "App/Common/Shared/Request";
 import { useState } from "react";
 import swal from "sweetalert";
 import { columns } from "../shared/columns";
@@ -11,7 +11,6 @@ const useFetch = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [load, setLoad] = useState(false);
-  const {request} = useRequest();
   /*.......................fetch all workers..................................*/
   const getAllWorkers = () => {
     setLoad(true);
@@ -34,7 +33,6 @@ const useFetch = () => {
   };
   /*......................get worker details.....................................*/
   const editWorker = (name, email, department, title) => {
-    setLoad(true);
     request
       .put(`/workers/${workerID}`, {
         name: name,
@@ -45,16 +43,11 @@ const useFetch = () => {
       .then(
         (res) => {
           swal("Successful", `${name} has been updated`, "success");
-          setLoad(false);
         },
-        (err) => {
-          setErrors(err.response.data);
-          setLoad(false);
-        }
+        (err) => setErrors(err.response.data)
       )
       .then((err) => {
         setErrors(err.response.data);
-        setLoad(false);
       });
   };
 
@@ -74,15 +67,12 @@ const useFetch = () => {
   };
   /*.....................edit button click handler................................*/
   const handleView = (workerId) => {
-        setLoad(true);
     request
       .get(`/workers/${workerId}`)
       .then(
         (res) => {
           setLoad(false);
           setWorker(res.data);
-        setLoad(false);
-
         },
         (err) => {
           swal("Error", err.response.message, "error");
@@ -98,19 +88,14 @@ const useFetch = () => {
   };
   /*...................................get worker by Id.................................*/
   const handleDelete = (workerId) => {
-    setLoad(true);
     request
       .get(`/workers/${workerId}`)
       .then(
         (res) => {
           setWorker(res.data);
-        setLoad(false);
-
         },
         (err) => {
           swal("Error", err.response.message, "error");
-        setLoad(false);
-
         }
       )
       .then(() => setOpenDelete(true))
@@ -122,7 +107,7 @@ const useFetch = () => {
   /*...................................data for datatable.....................*/
   const data = {
     columns,
-    rows: dataWithActions(load,allWorkers, handleView, handleDelete),
+    rows: dataWithActions(allWorkers, handleView, handleDelete),
   };
 
   return {

@@ -1,4 +1,4 @@
-import useRequest from "App/Common/Shared/useRequest";
+import request from "App/Common/Shared/Request";
 import { useState } from "react";
 import swal from "sweetalert";
 
@@ -10,8 +10,6 @@ const useAdd = () => {
   const [department, setDepartment] = useState("");
   const [errors, setErrors] = useState("");
   const [openAdd, setOpenAdd] = useState(false);
-  const [addLoad,setAddLoad] = useState(false);
-  const {request} = useRequest();
 
   const handleChange = (e) => {
     switch (e.target.id) {
@@ -41,7 +39,6 @@ const useAdd = () => {
   };
 
   const addItem = () => {
-    setAddLoad(true);
     request
       .post(`/inventory`, {
         name: name,
@@ -60,22 +57,18 @@ const useAdd = () => {
           setUnit_weight("");
           setDepartment("");
           setErrors("");
-          setAddLoad(false);
         },
         (err) => {
           err.response.status === 400
             ? swal("Duplicate error", err.response.data, "error")
             : setErrors(err.response.data);
-          setAddLoad(false);
-
         }
       )
       .catch((err) => {
         setErrors(err.response.data);
-          setAddLoad(false);
       });
   };
 
-  return {addItem, handleChange, errors, setErrors, openAdd, setOpenAdd,addLoad};
+  return {addItem, handleChange, errors, setErrors, openAdd, setOpenAdd};
 };
 export default useAdd;
