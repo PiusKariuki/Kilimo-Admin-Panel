@@ -25,7 +25,7 @@ const ConfigureStore = () => {
 	// subscribe to state changes to store our user info, tkn and other non-changing data
 	store.subscribe(() => {
 		// save token and user info on state Changes
-		 saveState(store.getState());
+		saveState(store.getState());
 	});
 	return store;
 };

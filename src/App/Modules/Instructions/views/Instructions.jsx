@@ -52,7 +52,6 @@ const Instructions = () => {
       />
       {/* ................................................................ */}
       <AddDialog
-        load={addLoad}
         task={task}
         department={department}
         errors={errors}
@@ -88,7 +87,6 @@ const Instructions = () => {
           responsive
           striped
           bordered
-          hover
           data={data}
           entries={7}
           btn
